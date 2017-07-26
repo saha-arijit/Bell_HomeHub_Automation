@@ -1,0 +1,9 @@
+*** Variables ***
+${var_wahostname}    52.14.193.76    # WA Host Name - Hostname of the Wave Automation Server
+${var_wausername}    Administrator    # WA User Name - Username of the Wave Automation Server
+${var_wapassword}    bellserver2!    # WA Password - Password for the Wave Automation Server
+${var_waportnumber}    22    # WA Port Number - Port Number for SCP to Wave Automation Server
+${var_dbhostname}    localhost    # DB Host Name - Host name for Database server
+${var_dbusername}    root    # DB Username - Username for DB connection
+${var_dbpassword}    arijit    # DB Password - Password for the DB connection
+${var_localDBBackup}    /Bell_HomeHub_Automation/Bell_HomeHub_Automation_Backup/    # Local DB Backup - Location on DB Backup files in Robot Server
