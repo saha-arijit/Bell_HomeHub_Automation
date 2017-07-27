@@ -75,6 +75,7 @@ def insertResult(srvr_details, result_test_id, throughput_multiplier, testname, 
 				
 		# Result parse and store script for MaxClient test type
 		if (param_main_testType == 'MaxClient'):
+		
 			remote_directory = param_main_directory + "\\"+ param_main_date+"\\unicast_max_client_capacity\MaximumClientCapacity\Results_unicast_maximum_client_capacity.csv"
 			local_directory = SecureCopyLibrary.getFileFromWaveServer(srvr_details[0], srvr_details[1], srvr_details[2], srvr_details[3], remote_directory.replace('\\','/'))
 			
@@ -166,7 +167,7 @@ def insertResult(srvr_details, result_test_id, throughput_multiplier, testname, 
 				param_main_folder = ""
 				
 		if (param_main_testType == 'LAT'):
-		
+			
 			query_mcs_id = "SELECT mcs_id, mcs FROM results.wifi_test_param_mcs WHERE test_id = '%d'" % (result_test_id)
 			cursor.execute(query_mcs_id)
 			result_count = cursor.fetchall()

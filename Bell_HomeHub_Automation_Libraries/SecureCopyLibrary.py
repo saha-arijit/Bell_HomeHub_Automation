@@ -7,13 +7,23 @@ import Logger
 destfilepath = '/Bell_HomeHub_Automation/Bell_Homehub_Automation_Files'
 def getFileFromWaveServer(host, port, user, password, sourcefilepath):
 	createDir(destfilepath)
-	client = paramiko.SSHClient()
-	client.load_system_host_keys()
-	client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-	client.connect(host, int(port), user, password)
-	scp = SCPClient(client.get_transport())
-	scp.get(sourcefilepath,destfilepath)
-	filename = getFileNameinLocal(sourcefilepath)
+	try:
+		client = paramiko.SSHClient()
+		client.load_system_host_keys()
+		client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+		client.connect(host, int(port), user, password)
+		scp = SCPClient(client.get_transport())
+		scp.get(sourcefilepath,destfilepath)
+		filename = getFileNameinLocal(sourcefilepath)
+	except Exception:
+		Logger.logMessage ("Trying to fetch the file again.")
+		client = paramiko.SSHClient()
+		client.load_system_host_keys()
+		client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+		client.connect(host, int(port), user, password)
+		scp = SCPClient(client.get_transport())
+		scp.get(sourcefilepath,destfilepath)
+		filename = getFileNameinLocal(sourcefilepath)
 	return destfilepath+'/'+filename
 	
 def putFileToWaveServer(host, port, user, password, source_backup, timeStamp, remote_path):
@@ -35,8 +45,11 @@ def putFileToWaveServer(host, port, user, password, source_backup, timeStamp, re
 	
 
 def createDir(destfilepath):
-	if not os.path.exists(destfilepath):
-		os.makedirs(destfilepath)
-	
+	try:
+		if not os.path.exists(destfilepath):
+			os.makedirs(destfilepath)
+	except:
+		Logger.logMessage ("Path exists on remote server")
+		
 def getFileNameinLocal(sourcefilepath):
 	return basename(sourcefilepath)
