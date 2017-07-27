@@ -94,10 +94,20 @@ def MySQL_Backup(remoteBackUpPath, backup_type, backup_period, backup_action):
 	if backup_type.lower() == 'manual':
 		Logger.logMessage ("Initiating Manual BackUp.")
 		ManualBackUp(backup_path, remoteBackUpPath)
-	if backup_type.lower() == 'automatic':
-		Logger.logMessage ("Initiating Automatic BackUp.")
-		AutoBackUp(remoteBackUpPath, backup_period, backup_action)
-
+	elif backup_type.lower() == 'automatic':
+		
+		if backup_action.lower() == 'start':
+			Logger.logMessage ("Creating Scheduled task for Automatic BackUp.")
+			AutoBackUp(remoteBackUpPath, backup_period, backup_action)
+			Logger.logMessage ("Completed creating Scheduled task for Automatic Backup.")
+		elif backup_action.lower() == 'stop':	
+			Logger.logMessage ("Removing existing Scheduled task for Automatic BackUp.")
+			AutoBackUp(remoteBackUpPath, backup_period, backup_action)
+			Logger.logMessage ("Scheduled Automatic Backup task removed.")
+		else:
+			Logger.logMessage ("Invalid Entry for BackUp Action. Choose between Start and Stop.")
+	else:
+		Logger.logMessage ("Invalid Entry for BackUp type. Choose between Automatic and Manual")
 """
 Calling method "ManualBackUp" to create a scheduled task for Manual Backup of the databases.
 Parameters passed :
@@ -159,7 +169,6 @@ def AutoBackUp(remoteBackUpPath, backup_period, backup_action):
 		command = ['schtasks.exe','/DELETE','/TN', 'DB_AutoBackup', '/F']
 		proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 		stdout_value = proc.stdout.read()
-		Logger.logMessage ("Deleted the existing scheduled automatic DB backup task")
 	
 	# Creation or modification of scheduled task
 	if 	backup_action.lower() == 'start':	
@@ -171,13 +180,13 @@ def AutoBackUp(remoteBackUpPath, backup_period, backup_action):
 			
 		#if existing tasks are present, then delete the existing task and create a new task	
 		if 'DB_AutoBackup' in existingTask:
-			print "Task needs to be modified"
+			Logger.logMessage ("Modifying existing Backup Task")
 			command = ['schtasks.exe','/DELETE','/TN', 'DB_AutoBackup', '/F']
 			proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 			stdout_value = proc.stdout.read()
+			drive = os.path.splitdrive(os.getcwd())
 			command='schtasks /Create /SC daily /mo %s /TN DB_AutoBackup /TR "\\"%s\\Bell_HomeHub_Automation\\Bell_HomeHub_Automation_Libraries\\AutoBackUp.bat\\" %s'%(backup_period, drive[0] ,remoteBackUpPath)
-			proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-			stdout_value = proc.stdout.read()
+			os.system(command)
 
 if __name__ == "__main__":
 	AutoRun(sys.argv[1])
