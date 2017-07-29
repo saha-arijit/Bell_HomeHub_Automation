@@ -9,6 +9,11 @@ import os
 import BatParseLibrary
 import SecureCopyLibrary
 import Logger
+from robot.api.deco import keyword
+
+@keyword('Library Command')
+def comment(*message):
+	pass
 
 #List initialization to store Wave Automation Server details from common parameters userconfig.txt file
 srvr_details = []
@@ -42,6 +47,8 @@ def SCPDetails(var_wahostname, var_waportnumber, var_wausername, var_wapassword,
 # Parse and store values of .bat file	
 def MySQL_Store_Result(var_test_name_in, var_locofbat, var_test_direction, var_date_ts, var_throughput_multiplier_in):
 	
+	testDuration = 1
+	
 	#Calling method to parse the location of .bat file and fetch in from Wave Automation Server
 	Location_Of_Bat_File(var_locofbat)
 	
@@ -56,5 +63,5 @@ def MySQL_Store_Result(var_test_name_in, var_locofbat, var_test_direction, var_d
 		var_throughput_multiplier_in		-	User configurable value for throughput multiplier applicable for TP test cases only
 		filePath							-	Location of .bat file in local Robot Automation server after being fetched from remote
 	"""
-	BatParseLibrary.parseBatFile(srvr_details, var_test_name_in, var_test_direction, var_date_ts, var_throughput_multiplier_in, filePath)
+	BatParseLibrary.parseBatFile(srvr_details, var_test_name_in, var_test_direction, var_date_ts, var_throughput_multiplier_in, filePath, testDuration)
 	

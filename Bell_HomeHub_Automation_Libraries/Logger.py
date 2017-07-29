@@ -1,6 +1,6 @@
 import logging
 import sys
-
+	
 def logMessage(message):
 	root = logging.getLogger()
 	root.setLevel(logging.INFO)

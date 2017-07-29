@@ -16,7 +16,7 @@ def getFileFromWaveServer(host, port, user, password, sourcefilepath):
 		scp.get(sourcefilepath,destfilepath)
 		filename = getFileNameinLocal(sourcefilepath)
 	except Exception:
-		Logger.logMessage ("Trying to fetch the file again.")
+		Logger.logMessage ("Trying to fetch the file again. Please check that it exists in remote or is not kept open")
 		client = paramiko.SSHClient()
 		client.load_system_host_keys()
 		client.set_missing_host_key_policy(paramiko.AutoAddPolicy())

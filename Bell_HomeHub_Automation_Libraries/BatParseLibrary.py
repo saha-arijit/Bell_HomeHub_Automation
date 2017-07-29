@@ -11,16 +11,16 @@ import ResultParseLibrary
 import Logger
 
 #Inserting the Params values
-def insertParams(srvr_details, params, date):
+def insertParams(srvr_details, params, date, testDuration):
 	#Open database connection
 	db = pymysql.connect(srvr_details[4],srvr_details[5],srvr_details[6],"results")
 	#prepare a cursor object using cursor() method
 	cursor = db.cursor()
 	query = "INSERT INTO wifi_test_param_main(date_ts, test_name, test_type, ssid, pw, directory, ap , apver, direction, channel, expectConn, source, destination, \
-		 duration, ss, bw, gi, eth_dut, w_dut, w_grouptype) \
-		 VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%s', '%d', '%d', '%d', '%s', '%s', '%s', '%s')" % \
+		 duration, ss, bw, gi, eth_dut, w_dut, w_grouptype, test_duration) \
+		 VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%s', '%d', '%d', '%d', '%s', '%s', '%s', '%s', '%d')" % \
 		 (date, params[0], params[1], params[2], params[3], params[4].replace('\\', '\\\\'), params[6], params[7], params[5], int(params[8]), params[9], params[10], \
-		 params[11], int(params[12]), int(params[13]), int(params[14]), params[15], params[16], params[17], params[18])
+		 params[11], int(params[12]), int(params[13]), int(params[14]), params[15], params[16], params[17], params[18], int(testDuration))
 		
 	#execute SQL query for inserting values                                  #change above after d
 	cursor.execute(query)
@@ -123,7 +123,7 @@ Parameters passed :
 	throughput_multiplier 	- Throughput multipler value valid for TP test cases only.
 	filename				- filepath for the .bat file
 """
-def parseBatFile(srvr_details, testname, direction, date, throughput_multiplier, filename):
+def parseBatFile(srvr_details, testname, direction, date, throughput_multiplier, filename, testDuration):
 	with open(filename, 'r') as file:
 		params = []
 		for line in file:
@@ -225,7 +225,7 @@ def parseBatFile(srvr_details, testname, direction, date, throughput_multiplier,
 							date			- Date which has timestamp value
 						"""
 						Logger.logMessage ("Inserting data into Params Main table for " + testname)
-						insertParams(srvr_details, params, date)
+						insertParams(srvr_details, params, date, testDuration)
 						Logger.logMessage ("Completed inserting data into Params Main table for " + testname)
 						
 						"""

@@ -12,6 +12,11 @@ import datetime
 import subprocess
 import SecureCopyLibrary
 import Logger
+from robot.api.deco import keyword
+
+# #@keyword('Library Command')
+# def Library_Command(*message):
+	# pass
 
 # Set the path location of the userconfig.txt file
 drive = os.path.splitdrive(os.getcwd())
