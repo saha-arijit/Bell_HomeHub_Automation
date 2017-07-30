@@ -30,12 +30,13 @@ def insertParams(srvr_details, params, date, testDuration):
 	db.close()
 
 # Inserting the Mcs values	
-def insertMcs(srvr_details, mcs, params):
+def insertMcs(srvr_details, mcs, params, date):
 	#Open database connection
 	db = pymysql.connect(srvr_details[4],srvr_details[5],srvr_details[6],"results")
 	#prepare a cursor object using cursor() method
 	cursor = db.cursor()		
-	query_test_id = "SELECT test_id FROM results.wifi_test_param_main WHERE test_name = '%s' AND direction = '%s'" % (params[0] , params[5])
+	query_test_id = "SELECT test_id FROM results.wifi_test_param_main WHERE test_name = '%s' AND direction = '%s' AND date_ts='%s'" % \
+					(params[0] , params[5], date)
 	
 	#execute SQL query for fetching test_id
 	cursor.execute(query_test_id)
@@ -52,12 +53,13 @@ def insertMcs(srvr_details, mcs, params):
 	db.close()
 
 # Inserting the loads values
-def insertLoads(srvr_details, loads, params):
+def insertLoads(srvr_details, loads, params, date):
 	#Open database connection
 	db = pymysql.connect(srvr_details[4],srvr_details[5],srvr_details[6],"results")
 	#prepare a cursor object using cursor() method
 	cursor = db.cursor()		
-	query_test_id = "SELECT test_id FROM results.wifi_test_param_main WHERE test_name = '%s' AND direction = '%s'" % (params[0] , params[5])
+	query_test_id = "SELECT test_id FROM results.wifi_test_param_main WHERE test_name = '%s' AND direction = '%s' AND date_ts='%s'" % \
+					(params[0] , params[5], date)
 	
 	#execute SQL query for fetching test_id
 	cursor.execute(query_test_id)
@@ -74,12 +76,13 @@ def insertLoads(srvr_details, loads, params):
 	db.close()	
 
 # Inserting the framesize values	
-def insertFrames(srvr_details, frames, params, throughput_multiplier, testname, mFolder):
+def insertFrames(srvr_details, frames, params, throughput_multiplier, testname, mFolder, date):
 	#Open database connection
 	db = pymysql.connect(srvr_details[4],srvr_details[5],srvr_details[6],"results")
 	#prepare a cursor object using cursor() method
 	cursor = db.cursor()		
-	query_test_id = "SELECT test_id FROM results.wifi_test_param_main WHERE test_name = '%s' AND direction = '%s'" % (params[0] , params[5])
+	query_test_id = "SELECT test_id FROM results.wifi_test_param_main WHERE test_name = '%s' AND direction = '%s' AND date_ts='%s'" % \
+					(params[0] , params[5], date)
 	
 	#execute SQL query to fetch test_id
 	cursor.execute(query_test_id)
@@ -236,7 +239,7 @@ def parseBatFile(srvr_details, testname, direction, date, throughput_multiplier,
 						 	params			- Parameters parsed from .bat file as list,
 						"""
 						Logger.logMessage ("Inserting data into MCS table for " + testname)
-						insertMcs(srvr_details, mcs, params)
+						insertMcs(srvr_details, mcs, params, date)
 						Logger.logMessage ("Completed inserting data into MCS table for " + testname)
 						
 						"""
@@ -248,7 +251,7 @@ def parseBatFile(srvr_details, testname, direction, date, throughput_multiplier,
 						"""
 						if len(loads) > 0:
 							Logger.logMessage ("Inserting data into Loads tables for " + testname)
-							insertLoads(srvr_details, loads, params)
+							insertLoads(srvr_details, loads, params, date)
 							Logger.logMessage ("Completed inserting data into Loads table for " + testname)
 							
 						"""
@@ -261,7 +264,7 @@ def parseBatFile(srvr_details, testname, direction, date, throughput_multiplier,
 							testname 				- Name of the test case being executed.
 						"""	
 						Logger.logMessage ("Inserting data into Frames tables for " + testname)	
-						insertFrames(srvr_details, frames, params, throughput_multiplier, testname, mFolder)
+						insertFrames(srvr_details, frames, params, throughput_multiplier, testname, mFolder, date)
 						Logger.logMessage ("Completed parsing of .csv files of Results and values inserted to table for " + testname)	
 						Logger.logMessage ("Moving to next test case")
 					del params[:]
