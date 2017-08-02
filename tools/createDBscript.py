@@ -48,7 +48,7 @@ def create_tables_master():
 	  `apver` VARCHAR(45) NULL, \
 	  `direction` VARCHAR(45) NULL, \
 	  `channel` INT NULL, \
-	  `expectConn` INT NULL, \
+	  `expectConn` VARCHAR(45) NULL, \
 	  `source` VARCHAR(45) NULL, \
 	  `destination` VARCHAR(45) NULL, \
 	  `duration` INT NULL, \
@@ -153,8 +153,7 @@ def create_tables_master():
 	# Query to wifi_project_test table under create master schema
 	queryWifiProjctTest = "CREATE TABLE wifi_project_test ( \
 	  `project_id` INT NOT NULL, \
-	  `test_id` INT NULL, \
-	  PRIMARY KEY (`project_id`))"
+	  `test_id` INT NOT NULL )"
 	cursor.execute(queryWifiProjctTest)
 	db.commit()
 	db.close()
@@ -180,7 +179,7 @@ def create_tables_result():
 	  `apver` VARCHAR(45) NULL, \
 	  `direction` VARCHAR(45) NULL, \
 	  `channel` INT NULL, \
-	  `expectConn` INT NULL, \
+	  `expectConn` VARCHAR(45) NULL, \
 	  `source` VARCHAR(45) NULL, \
 	  `destination` VARCHAR(45) NULL, \
 	  `duration` INT NULL, \
@@ -297,7 +296,7 @@ def create_views_master(): # method to create views under master schema
 	db.commit()
 	# Query to create wifi_results_tp_view under master schema
 	queryMstrViewTP = "CREATE VIEW `wifi_results_tp_view` AS \
-		SELECT r_tp.test_id, project_id, mcs, framesize, throughput_pps, throughput_bps, threshold_throughput_pps FROM wifi_results_tp AS r_tp \
+		SELECT r_tp.test_id, p_main.test_name, project_id, mcs, framesize, throughput_pps, throughput_bps, threshold_throughput_pps FROM wifi_results_tp AS r_tp \
 		JOIN wifi_test_param_mcs AS p_mcs ON p_mcs.mcs_id = r_tp.mcs_id \
 		JOIN wifi_test_param_framesize as p_frames ON p_frames.framesize_id = r_tp.framesize_id \
 		JOIN wifi_test_param_main AS p_main ON p_main.test_id = r_tp.test_id \
@@ -306,7 +305,7 @@ def create_views_master(): # method to create views under master schema
 	db.commit()
 	# Query to create wifi_results_lat_view under master schema
 	queryMstrViewLAT = "CREATE VIEW `wifi_results_lat_view` AS \
-		SELECT r_lat.test_id, project_id, date_ts, mcs, framesize, minimum_latency, maximum_latency, average_latency \
+		SELECT r_lat.test_id, p_main.test_name, project_id, date_ts, mcs, framesize, minimum_latency, maximum_latency, average_latency \
 		FROM wifi_results_lat AS r_lat \
 		JOIN wifi_test_param_mcs AS p_mcs ON p_mcs.mcs_id = r_lat.mcs_id \
 		JOIN wifi_test_param_framesize as p_frames ON p_frames.framesize_id = r_lat.framesize_id \
@@ -316,7 +315,7 @@ def create_views_master(): # method to create views under master schema
 	db.commit()
 	# Query to create wifi_results_rr_view under master schema
 	queryMstrViewRR = "CREATE VIEW `wifi_results_rr_view` AS \
-		SELECT r_rr.test_id, project_id, date_ts, mcs, framesize, estimatedpathlossdB, groupoload_bps, forwardingrate_bps, frameloss_rate \
+		SELECT r_rr.test_id, p_main.test_name, project_id, date_ts, mcs, framesize, estimatedpathlossdB, groupoload_bps, forwardingrate_bps, frameloss_rate \
 		FROM wifi_results_rr AS r_rr \
 		JOIN wifi_test_param_mcs AS p_mcs ON p_mcs.mcs_id = r_rr.mcs_id \
 		JOIN wifi_test_param_framesize as p_frames ON p_frames.framesize_id = r_rr.framesize_id \
@@ -326,7 +325,7 @@ def create_views_master(): # method to create views under master schema
 	db.commit()
 	# Query to create wifi_results_maxclient_view table under master schema
 	queryMstrViewMax = "CREATE VIEW `wifi_results_maxclient_view` AS \
-		SELECT r_max.test_id, project_id, date_ts, mcs, framesize, no_of_clients FROM wifi_results_maxclient AS r_max \
+		SELECT r_max.test_id, p_main.test_name, project_id, date_ts, mcs, framesize, no_of_clients FROM wifi_results_maxclient AS r_max \
 		JOIN wifi_test_param_mcs AS p_mcs ON p_mcs.mcs_id = r_max.mcs_id \
 		JOIN wifi_test_param_framesize as p_frames ON p_frames.framesize_id = r_max.framesize_id \
 		JOIN wifi_test_param_main as p_main ON p_main.test_id = r_max.test_id \
@@ -354,7 +353,7 @@ def create_views_result():
 	db.commit()
 	# Query to create wifi_results_tp_view under results schema
 	queryRsltViewTP = "CREATE VIEW `wifi_results_tp_view` AS \
-			SELECT r_tp.test_id, date_ts, mcs, framesize, throughput_pps, throughput_bps, threshold_throughput_pps FROM results.wifi_results_tp AS r_tp \
+			SELECT r_tp.test_id, p_main.test_name, date_ts, mcs, framesize, throughput_pps, throughput_bps, threshold_throughput_pps FROM results.wifi_results_tp AS r_tp \
 			 JOIN wifi_test_param_mcs AS p_mcs ON p_mcs.mcs_id = r_tp.mcs_id \
 			 JOIN wifi_test_param_framesize as p_frames ON p_frames.framesize_id = r_tp.framesize_id \
 			 JOIN wifi_test_param_main as p_main ON p_main.test_id = r_tp.test_id"
@@ -362,7 +361,7 @@ def create_views_result():
 	db.commit()
 	# Query to create wifi_results_lat_view under results schema
 	queryRsltViewLAT = "CREATE VIEW `wifi_results_lat_view` AS \
-			SELECT r_lat.test_id, date_ts, mcs, framesize, minimum_latency, maximum_latency, average_latency \
+			SELECT r_lat.test_id, p_main.test_name, date_ts, mcs, framesize, minimum_latency, maximum_latency, average_latency \
 			 FROM wifi_results_lat AS r_lat \
 			 JOIN wifi_test_param_mcs AS p_mcs ON p_mcs.mcs_id = r_lat.mcs_id \
 			 JOIN wifi_test_param_framesize as p_frames ON p_frames.framesize_id = r_lat.framesize_id \
@@ -371,7 +370,7 @@ def create_views_result():
 	db.commit()
 	# Query to create wifi_results_rr_view under results schema
 	queryRsltViewRR = "CREATE VIEW `wifi_results_rr_view` AS \
-			SELECT r_rr.test_id, date_ts, mcs, framesize, estimatedpathlossdB, groupoload_bps, forwardingrate_bps, frameloss_rate \
+			SELECT r_rr.test_id, p_main.test_name, date_ts, mcs, framesize, estimatedpathlossdB, groupoload_bps, forwardingrate_bps, frameloss_rate \
 			 FROM wifi_results_rr AS r_rr \
 			 JOIN wifi_test_param_mcs AS p_mcs ON p_mcs.mcs_id = r_rr.mcs_id \
 			 JOIN wifi_test_param_framesize as p_frames ON p_frames.framesize_id = r_rr.framesize_id \
@@ -380,7 +379,7 @@ def create_views_result():
 	db.commit()
 	# Query to create wifi_results_maxclient_view under results schema
 	queryRsltViewMax = "CREATE VIEW `wifi_results_maxclient_view` AS \
-			SELECT r_max.test_id, date_ts, mcs, framesize, no_of_clients FROM results.wifi_results_maxclient AS r_max \
+			SELECT r_max.test_id, p_main.test_name, date_ts, mcs, framesize, no_of_clients FROM results.wifi_results_maxclient AS r_max \
 			 JOIN wifi_test_param_mcs AS p_mcs ON p_mcs.mcs_id = r_max.mcs_id \
 			 JOIN wifi_test_param_framesize as p_frames ON p_frames.framesize_id = r_max.framesize_id \
 			 JOIN wifi_test_param_main as p_main ON p_main.test_id = r_max.test_id"

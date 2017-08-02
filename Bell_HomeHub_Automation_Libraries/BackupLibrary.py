@@ -180,7 +180,7 @@ def AutoBackUp(remoteBackUpPath, backup_period, backup_action):
 		# Creates a scheduled task when no task by the same name is present	
 		if 'DB_AutoBackup' not in existingTask:
 			drive = os.path.splitdrive(os.getcwd())
-			command='schtasks /Create /SC daily /mo %s /TN DB_AutoBackup /TR "\\"%s\\Bell_HomeHub_Automation\\Bell_HomeHub_Automation_Libraries\\AutoBackUp.bat\\" %s'%(backup_period, drive[0] ,remoteBackUpPath)
+			command='schtasks /Create /SC daily /mo %s /TN DB_AutoBackup /ST 00:00 /TR "\\"%s\\Bell_HomeHub_Automation\\Bell_HomeHub_Automation_Libraries\\AutoBackUp.bat\\" %s'%(backup_period, drive[0] ,remoteBackUpPath)
 			os.system(command)
 			
 		#if existing tasks are present, then delete the existing task and create a new task	
