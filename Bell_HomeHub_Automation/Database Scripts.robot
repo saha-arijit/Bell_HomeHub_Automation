@@ -23,7 +23,7 @@ MySQL Store Result
 MySQL Backup
     [Setup]    SetUserConfig    # Get connection details for Database
     Library Command    Remote Location to store DB Backup file    Backup Type    Backup Period (In Days)    Backup Action
-    MySQL_Backup    /D:/BackUp/    Manual    2    Start
+    MySQL_Backup    /D:/BackUp/    Automatic    3    Stop
 
 MySQL Copy
     [Setup]    DBParams    ${var_dbhostname}    ${var_dbusername}    ${var_dbpassword}    # Get connection details for Database

@@ -190,7 +190,7 @@ def AutoBackUp(remoteBackUpPath, backup_period, backup_action):
 			proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 			stdout_value = proc.stdout.read()
 			drive = os.path.splitdrive(os.getcwd())
-			command='schtasks /Create /SC daily /mo %s /TN DB_AutoBackup /TR "\\"%s\\Bell_HomeHub_Automation\\Bell_HomeHub_Automation_Libraries\\AutoBackUp.bat\\" %s'%(backup_period, drive[0] ,remoteBackUpPath)
+			command='schtasks /Create /SC daily /mo %s /TN DB_AutoBackup /ST 00:00 /TR "\\"%s\\Bell_HomeHub_Automation\\Bell_HomeHub_Automation_Libraries\\AutoBackUp.bat\\" %s'%(backup_period, drive[0] ,remoteBackUpPath)
 			os.system(command)
 
 if __name__ == "__main__":
