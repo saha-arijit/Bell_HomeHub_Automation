@@ -92,6 +92,13 @@ Parameters passed :
 """		
 def MySQL_Backup(remoteBackUpPath, backup_type, backup_period, backup_action):
 	
+	if (len(remoteBackUpPath) <=0):
+		raise Exception ("Value for path to store backup files cannot be empty.")
+	if (len(backup_type) <= 0):
+		raise Exception ("Value for type of backup to be executed cannot be left empty.")
+	if (len(backup_period) <= 0):
+		raise Exception ("Enter 'NA' for Manual Backup. Incase of Automatic Backup enter value for number of days.")
+		
 	if backup_type.lower() == 'manual':
 		Logger.logMessage ("Initiating Manual BackUp.")
 		ManualBackUp(backup_path, remoteBackUpPath)
@@ -99,6 +106,10 @@ def MySQL_Backup(remoteBackUpPath, backup_type, backup_period, backup_action):
 		
 		if backup_action.lower() == 'start':
 			Logger.logMessage ("Creating Scheduled task for Automatic BackUp.")
+			try:
+				int(backup_period)
+			except ValueError:
+				raise Exception ("Should enter a numeric value for Backup Period in case of Automatic Backup.")
 			AutoBackUp(remoteBackUpPath, backup_period, backup_action)
 			Logger.logMessage ("Completed creating Scheduled task for Automatic Backup.")
 		elif backup_action.lower() == 'stop':	

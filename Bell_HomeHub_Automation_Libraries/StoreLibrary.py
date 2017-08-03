@@ -47,6 +47,15 @@ def SCPDetails(var_wahostname, var_waportnumber, var_wausername, var_wapassword,
 # Parse and store values of .bat file	
 def MySQL_Store_Result(var_test_name_in, var_locofbat, var_test_direction, var_date_ts, var_throughput_multiplier_in):
 	
+	if (len(var_test_name_in) <=0):
+		raise Exception ("Value for Test Name cannot be empty.")
+	if (len(var_locofbat) <=0):
+		raise Exception ("Value for path to .bat file in remote server cannot be empty.")
+	if (len(var_test_direction) <=0):
+		raise Exception ("Value for Direction for the Test Case cannot be empty.")
+	if (len(var_date_ts) <=0):
+		raise Exception ("Value for Result Timestamp for test case cannot be empty.")
+		
 	testDuration = 1
 	
 	#Calling method to parse the location of .bat file and fetch in from Wave Automation Server

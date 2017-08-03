@@ -153,7 +153,8 @@ def create_tables_master():
 	# Query to wifi_project_test table under create master schema
 	queryWifiProjctTest = "CREATE TABLE wifi_project_test ( \
 	  `project_id` INT NOT NULL, \
-	  `test_id` INT NOT NULL )"
+	  `test_id` INT NOT NULL, \
+	  PRIMARY KEY (`project_id`, `test_id`))"
 	cursor.execute(queryWifiProjctTest)
 	db.commit()
 	db.close()

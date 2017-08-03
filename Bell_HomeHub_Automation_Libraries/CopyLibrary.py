@@ -19,6 +19,8 @@ def DBParams(var_dbhostname, var_dbusername, var_dbpassword):
 	password = var_dbpassword
 	
 def MySQL_Copy(project_name, test_id):
+	if len(project_name) <= 0 :
+		raise Exception ("Project Name cannot be left blank.")
 	Logger.logMessage("Starting the MySQL Copy Script")
 	"""
 	Function Name        : MySQLCopy
