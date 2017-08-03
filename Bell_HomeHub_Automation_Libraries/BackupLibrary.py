@@ -14,10 +14,6 @@ import SecureCopyLibrary
 import Logger
 from robot.api.deco import keyword
 
-# #@keyword('Library Command')
-# def Library_Command(*message):
-	# pass
-
 # Set the path location of the userconfig.txt file
 drive = os.path.splitdrive(os.getcwd())
 ConfigFilePath = drive[0]+"\Bell_HomeHub_Automation\Bell_HomeHub_Automation\userconfig.txt"
@@ -32,28 +28,28 @@ def SetUserConfig():
 		#print eachline
 		str = eachline
 		#print str.find("var_ssid_in}")
-		if (str.find("var_wahostname}")>0):
+		if (str.find("var_backuphostname}")>0):
 			start = str.index("}")
 			end = str.index("#")
 			substr = str[start+1:end]
 			substr = substr.replace(" ","")
 			substr.strip()
 			waveHost = substr
-		elif (str.find("var_waportnumber}")>0):
+		elif (str.find("var_backupportnumber}")>0):
 			start = str.index("}")
 			end = str.index("#")
 			substr = str[start+1:end]
 			substr = substr.replace(" ","")
 			substr.strip()
 			wavePortNmbr = substr
-		elif (str.find("var_wausername}")>0):
+		elif (str.find("var_backupusername}")>0):
 			start = str.index("}")
 			end = str.index("#")
 			substr = str[start+1:end]
 			substr = substr.replace(" ","")
 			substr.strip()
 			waveUser = substr
-		elif (str.find("var_wapassword}")>0):
+		elif (str.find("var_backuppassword}")>0):
 			start = str.index("}")
 			end = str.index("#")
 			substr = str[start+1:end]
@@ -110,9 +106,11 @@ def MySQL_Backup(remoteBackUpPath, backup_type, backup_period, backup_action):
 			AutoBackUp(remoteBackUpPath, backup_period, backup_action)
 			Logger.logMessage ("Scheduled Automatic Backup task removed.")
 		else:
-			Logger.logMessage ("Invalid Entry for BackUp Action. Choose between Start and Stop.")
+			raise Exception ("Invalid Entry for BackUp Action. Choose between Start and Stop.")
+			#Logger.logMessage ("Invalid Entry for BackUp Action. Choose between Start and Stop.")
 	else:
-		Logger.logMessage ("Invalid Entry for BackUp type. Choose between Automatic and Manual")
+		raise Exception("Invalid Entry for BackUp type. Choose between Automatic and Manual")
+		#Logger.logMessage ("Invalid Entry for BackUp type. Choose between Automatic and Manual")
 """
 Calling method "ManualBackUp" to create a scheduled task for Manual Backup of the databases.
 Parameters passed :
@@ -143,13 +141,13 @@ def ManualBackUp(backup_path, remoteBackUpPath):
 		"""
 		Calling method "putFileToWaveServer" from SecureCopyLibrary to create a scheduled task for Automatic Backup of the databases.
 		Parameters passed :
-			waveHost				-	Host address of the Wave Automation Server
-			wavePortNmbr			-	SCP port number of the Wave Automation Server
-			waveUser				-	Username of the Wave Automation Server
-			wavePaswd				-	Password of the Wave Automation Server
+			waveHost				-	Host address of server to store Database Backup
+			wavePortNmbr			-	SCP port number of server to store Database Backup
+			waveUser				-	Username of server to store Database Backup
+			wavePaswd				-	Password of server to store Database Backup
 			backup_path				-	Local path in Robot Automation Server for storing the backup files after creation
 			timestamp				-	Timestamp value for creating a folder to store the backup files to.
-			remoteBackUpPath		- 	Configurable path entered by the user to place the backup files of database in Wave Automation Server
+			remoteBackUpPath		- 	Configurable path entered by the user to place the backup files of database in server to store Database Backup
 		"""	
 		SecureCopyLibrary.putFileToWaveServer(waveHost, wavePortNmbr, waveUser, wavePaswd, BACKUP_PATH + "/" + db + ".sql", DATETIME, remoteBackUpPath)
 		Logger.logMessage ("Completed Secure Copy of "+ db + " BackUp file to Wave Server")

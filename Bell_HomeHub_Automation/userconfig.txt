@@ -7,3 +7,7 @@ ${var_dbhostname}    localhost    # DB Host Name - Host name for Database server
 ${var_dbusername}    root    # DB Username - Username for DB connection
 ${var_dbpassword}    arijit    # DB Password - Password for the DB connection
 ${var_localDBBackup}    /Bell_HomeHub_Automation/Bell_HomeHub_Automation_Backup/    # Local DB Backup - Location on DB Backup files in Robot Server
+${var_backuphostname}    52.14.193.76    # DB BackUp Host Name - Hostname for server to store Database Backup
+${var_backupusername}    Administrator    # DB Backup User Name - User Name for server to store DB Backup
+${var_backuppassword}    bellserver2!    # DB Backup Password - Password for server to store DB Backup
+${var_backupportnumber}    22    # DB Backup SCP Port - Port Number for SCP to store DB Backup

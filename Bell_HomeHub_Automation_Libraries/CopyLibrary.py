@@ -50,45 +50,55 @@ def MySQL_Copy(project_name, test_id):
 		#Fetch a single row using fetchone() method.
 		db.commit()
 		
-		#Query to fetch project_id for the project name inserted
-		query_test_id = "SELECT project_id FROM master.wifi_project WHERE project_name = '%s'" % (project_name)
-		
+		# Check whether the entered test_id exists in the wifi_test_param_main table in results schema
+		query_test_id = "SELECT test_id FROM results.wifi_test_param_main WHERE test_id = '%s'" % (test_id)
 		cursor.execute(query_test_id)
-		result_proj_id = cursor.fetchone()[0]
-		
-		Logger.logMessage ("Inserting project id and test id into table") 
-		query = "INSERT INTO master.wifi_project_test(project_id, test_id) VALUES ('%d', '%d')" % (result_proj_id, int(test_id))	
-		
-		#execute SQL query using execute() method.
-		cursor.execute(query)
-		#Fetch a single row using fetchone() method.
-		db.commit()
+		if cursor.fetchone() is None :
+			# Raise exception when the test_id entered is not present in wifi_test_param_main table
+			raise Exception ("Data related to given Test ID: "+test_id+" does not exist.")
+		else:		
+			#Query to fetch project_id for the project name inserted
+			query_test_id = "SELECT project_id FROM master.wifi_project WHERE project_name = '%s'" % (project_name)
+			
+			cursor.execute(query_test_id)
+			result_proj_id = cursor.fetchone()[0]
+			
+			Logger.logMessage ("Inserting project id and test id into table") 
+			query = "INSERT INTO master.wifi_project_test(project_id, test_id) VALUES ('%d', '%d')" % (result_proj_id, int(test_id))	
+			
+			#execute SQL query using execute() method.
+			cursor.execute(query)
+			#Fetch a single row using fetchone() method.
+			db.commit()
 	else :
 		Logger.logMessage ("Project Name is already present")
 		
-		#Query to fetch project_id for the project name inserted
-		query_test_id = "SELECT project_id FROM master.wifi_project WHERE project_name = '%s'" % (project_name)
-		
+		# Check whether the entered test_id exists in the wifi_test_param_main table in results schema
+		query_test_id = "SELECT test_id FROM results.wifi_test_param_main WHERE test_id = '%s'" % (test_id)
 		cursor.execute(query_test_id)
-		result_proj_id = cursor.fetchone()[0]
+		if cursor.fetchone() is None :
+			# Raise exception when the test_id entered is not present in wifi_test_param_main table
+			raise Exception ("Data related to given Test ID: "+test_id+" does not exist.")
+		else:	
+			#Query to fetch project_id for the project name inserted
+			query_test_id = "SELECT project_id FROM master.wifi_project WHERE project_name = '%s'" % (project_name)
+			
+			cursor.execute(query_test_id)
+			result_proj_id = cursor.fetchone()[0]
+			
+			Logger.logMessage ("Inserting project id and test id into table") 
+			query = "REPLACE INTO master.wifi_project_test(project_id, test_id) VALUES ('%d', '%d')" % (result_proj_id, int(test_id))	
+			
+			#execute SQL query using execute() method.
+			cursor.execute(query)
+			#Fetch a single row using fetchone() method.
+			db.commit()
 		
-		Logger.logMessage ("Inserting project id and test id into table") 
-		query = "INSERT INTO master.wifi_project_test(project_id, test_id) VALUES ('%d', '%d')" % (result_proj_id, int(test_id))	
-		
-		#execute SQL query using execute() method.
-		cursor.execute(query)
-		#Fetch a single row using fetchone() method.
-		db.commit()
-		
-	#Query to wifi_test_param_main table under create results schema
 	Logger.logMessage ("Extracting values for Test ID " + test_id + " from tables.")
 	for i in tablesResults:
 		table = i
 		#stdout =open('mysql_data.log', 'w')
 		cursor.execute("SELECT * FROM results."+table+" WHERE test_id="+test_id+";")
-		
-		for row in cursor:
-			selectedRow = row
 	
 	Logger.logMessage ("Data successfully copied from Results table to Master table for Test ID "+ test_id)
 	for i in tablesResults:
