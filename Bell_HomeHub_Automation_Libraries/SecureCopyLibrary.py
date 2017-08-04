@@ -22,7 +22,10 @@ def getFileFromWaveServer(host, port, user, password, sourcefilepath):
 		client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 		client.connect(host, int(port), user, password)
 		scp = SCPClient(client.get_transport())
-		scp.get(sourcefilepath,destfilepath)
+		try :
+			scp.get(sourcefilepath,destfilepath)
+		except:
+			raise Exception ("Failed to fetch file from remote server. Please check the details entered are correct or the file is not open in this server.")
 		filename = getFileNameinLocal(sourcefilepath)
 	return destfilepath+'/'+filename
 	
@@ -40,7 +43,10 @@ def putFileToWaveServer(host, port, user, password, source_backup, timeStamp, re
 		sftp.mkdir(dest_backup)  # Test if remote_path exists
 	except IOError:
 		Logger.logMessage ("Path exists on remote server")
-	scp.put(source_backup,dest_backup)
+	try:	
+		scp.put(source_backup,dest_backup)
+	except :
+		raise Exception ("Could not locate the folder path to store backup on remote server. Please check the value entered is correct.")
 	filename = getFileNameinLocal(source_backup)
 	
 

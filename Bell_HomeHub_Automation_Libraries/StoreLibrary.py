@@ -55,6 +55,14 @@ def MySQL_Store_Result(var_test_name_in, var_locofbat, var_test_direction, var_d
 		raise Exception ("Value for Direction for the Test Case cannot be empty.")
 	if (len(var_date_ts) <=0):
 		raise Exception ("Value for Result Timestamp for test case cannot be empty.")
+	
+	if (var_test_direction != 'US' and var_test_direction != 'DS'):
+		raise Exception ("Invalid value for Test Direction. Choose between 'DS' and 'US'.")
+	
+	try:
+		float (var_throughput_multiplier_in)
+	except :	
+		raise Exception ("Throughput Multiplier should be assigned with integer values only.")
 		
 	testDuration = 1
 	

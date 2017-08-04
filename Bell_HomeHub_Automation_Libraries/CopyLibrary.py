@@ -52,6 +52,12 @@ def MySQL_Copy(project_name, test_id):
 		#Fetch a single row using fetchone() method.
 		db.commit()
 		
+		# Check whether test_id has been entered as integer value
+		try :
+			int(test_id)
+		except :
+			raise Exception ("Please enter numeric value for 'Test ID'. The number can be fetched from 'wifi_test_param_main' table under 'results' schema.")
+			
 		# Check whether the entered test_id exists in the wifi_test_param_main table in results schema
 		query_test_id = "SELECT test_id FROM results.wifi_test_param_main WHERE test_id = '%s'" % (test_id)
 		cursor.execute(query_test_id)
@@ -75,6 +81,12 @@ def MySQL_Copy(project_name, test_id):
 	else :
 		Logger.logMessage ("Project Name is already present")
 		
+		# Check whether test_id has been entered as integer value
+		try :
+			int(test_id)
+		except :
+			raise Exception ("Please enter numeric value for 'Test ID'. The number can be fetched from 'wifi_test_param_main' table under 'results' schema.")
+			
 		# Check whether the entered test_id exists in the wifi_test_param_main table in results schema
 		query_test_id = "SELECT test_id FROM results.wifi_test_param_main WHERE test_id = '%s'" % (test_id)
 		cursor.execute(query_test_id)

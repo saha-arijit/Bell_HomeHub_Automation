@@ -23,11 +23,11 @@ MySQL Store Result
 MySQL Backup
     [Setup]    SetUserConfig    # Get connection details for Database
     Library Command    Remote Location to store DB Backup file    Backup Type    Backup Period (In Days)    Backup Action
-    MySQL_Backup    /D:/BackUp/    Automatic    2    Start
+    MySQL_Backup    /D:/BackUp/    Manual    2    Start
 
 MySQL Copy
     [Setup]    DBParams    ${var_dbhostname}    ${var_dbusername}    ${var_dbpassword}    # Get connection details for Database
     Library Command    Project Name    Test Case ID
-    MySQL_Copy    dfghj    3
+    MySQL_Copy    My project1    2
 
 *** Keywords ***

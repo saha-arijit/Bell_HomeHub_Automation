@@ -109,7 +109,7 @@ def MySQL_Backup(remoteBackUpPath, backup_type, backup_period, backup_action):
 			try:
 				int(backup_period)
 			except ValueError:
-				raise Exception ("Should enter a numeric value for Backup Period in case of Automatic Backup.")
+				raise Exception ("Should enter a numeric or integer value for Backup Period in case of Automatic Backup.")
 			AutoBackUp(remoteBackUpPath, backup_period, backup_action)
 			Logger.logMessage ("Completed creating Scheduled task for Automatic Backup.")
 		elif backup_action.lower() == 'stop':	
