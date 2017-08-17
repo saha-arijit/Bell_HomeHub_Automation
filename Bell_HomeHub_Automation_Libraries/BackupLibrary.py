@@ -18,6 +18,7 @@ from robot.api.deco import keyword
 drive = os.path.splitdrive(os.getcwd())
 ConfigFilePath = drive[0]+"\Bell_HomeHub_Automation\Bell_HomeHub_Automation\userconfig.txt"
 
+
 #This function will parse the configuration parameters specific to this library from userconfig.txt file and use in exeuction 	
 def SetUserConfig():
 	global waveHost, wavePortNmbr, waveUser, wavePaswd, dbusername, dbpassword, backup_path
@@ -131,23 +132,23 @@ Parameters passed :
 def ManualBackUp(backup_path, remoteBackUpPath):		
 	database=['results','master']
 	# Getting current datetime to create seprate backup folder like "12012013-071334".
-	Logger.logMessage ("Fetching current time stamp value for backup folder")
+	Logger.logBackup ("Fetching current time stamp value for backup folder")
 	DATETIME = time.strftime('%m%d%Y-%H%M%S')
 	BACKUP_PATH = backup_path + DATETIME
 
 	# Checking if backup folder already exists or not. If not exists will create it.
-	Logger.logMessage("Checking Backup Folder in Local Server")
+	Logger.logBackup("Checking Backup Folder in Local Server")
 	if not os.path.exists(BACKUP_PATH):
-		Logger.logMessage("Creating Backup Folder in Local Server")
+		Logger.logBackup("Creating Backup Folder in Local Server")
 		os.makedirs(BACKUP_PATH)
 	else :
-		Logger.logMessage("Backup Directory already exists in local server")
+		Logger.logBackup("Backup Directory already exists in local server")
 		
 	for db in database:
 		dumpcmd = "mysqldump -u " + dbusername + " -p" + dbpassword + " " + db + " > " + BACKUP_PATH + "/" + db + ".sql"
 		os.system(dumpcmd)
-		Logger.logMessage ("Backup of " + db + " created in Local server")
-		Logger.logMessage ("Inititaing Secure Copy of "+ db + " BackUp file to Wave Server")
+		Logger.logBackup ("Backup of " + db + " created in Local server")
+		Logger.logBackup ("Inititaing Secure Copy of "+ db + " BackUp file to Wave Server")
 		
 		"""
 		Calling method "putFileToWaveServer" from SecureCopyLibrary to create a scheduled task for Automatic Backup of the databases.
@@ -161,9 +162,9 @@ def ManualBackUp(backup_path, remoteBackUpPath):
 			remoteBackUpPath		- 	Configurable path entered by the user to place the backup files of database in server to store Database Backup
 		"""	
 		SecureCopyLibrary.putFileToWaveServer(waveHost, wavePortNmbr, waveUser, wavePaswd, BACKUP_PATH + "/" + db + ".sql", DATETIME, remoteBackUpPath)
-		Logger.logMessage ("Completed Secure Copy of "+ db + " BackUp file to Wave Server")
+		Logger.logBackup ("Completed Secure Copy of "+ db + " BackUp file to Wave Server")
 
-	Logger.logMessage ("Manual Backup completed")
+	Logger.logBackup ("Database Backup completed")
 
 """
 Calling method "AutoBackUp" to create a scheduled task for Automatic Backup of the databases.
@@ -189,7 +190,7 @@ def AutoBackUp(remoteBackUpPath, backup_period, backup_action):
 		# Creates a scheduled task when no task by the same name is present	
 		if 'DB_AutoBackup' not in existingTask:
 			drive = os.path.splitdrive(os.getcwd())
-			command='schtasks /Create /SC daily /mo %s /TN DB_AutoBackup /ST 00:00 /TR "\\"%s\\Bell_HomeHub_Automation\\Bell_HomeHub_Automation_Libraries\\AutoBackUp.bat\\" %s'%(backup_period, drive[0] ,remoteBackUpPath)
+			command='schtasks /Create /SC minute /mo %s /TN DB_AutoBackup /TR "\\"%s\\Bell_HomeHub_Automation\\Bell_HomeHub_Automation_Libraries\\AutoBackUp.bat\\" %s'%(backup_period, drive[0] ,remoteBackUpPath)
 			os.system(command)
 			
 		#if existing tasks are present, then delete the existing task and create a new task	
