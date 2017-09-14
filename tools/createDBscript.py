@@ -2,7 +2,7 @@ import pymysql
 
 def create_schema_master():		# method to create schema master
 	#Open database connection to create SCHEMA
-	dbconn = pymysql.connect("localhost","root","arijit",)
+	dbconn = pymysql.connect("localhost","root","bell",)
 	#Create cursor for db connection
 	cursorConn = dbconn.cursor()
 	# Query to create master schema
@@ -18,7 +18,7 @@ def create_schema_master():		# method to create schema master
 
 def create_schema_result():			# method to create schema results
 	#Open database connection to create SCHEMA
-	dbconn = pymysql.connect("localhost","root","arijit",)
+	dbconn = pymysql.connect("localhost","root","bell",)
 	#Create cursor for db connection
 	cursorConn = dbconn.cursor()
 	# Query to create results schema
@@ -32,7 +32,7 @@ def create_schema_result():			# method to create schema results
 	
 def create_tables_master():
 	#Open database connection to create TABLES for master schema
-	db = pymysql.connect("localhost","root","arijit","master")
+	db = pymysql.connect("localhost","root","bell","master")
 	#Create cursor for db connection
 	cursor = db.cursor()
 	# Query to wifi_test_param_main table under create master schema
@@ -66,7 +66,7 @@ def create_tables_master():
 	# Query to wifi_test_param_loads table under create master schema
 	queryParamLoads = "CREATE TABLE wifi_test_param_loads ( \
 	  `loads_id` INT NOT NULL AUTO_INCREMENT, \
-	  `loads` INT NOT NULL, \
+	  `loads` FLOAT NOT NULL, \
 	  `test_id` INT NOT NULL, \
 	  PRIMARY KEY (`loads_id`))"
 	cursor.execute(queryParamLoads)
@@ -163,7 +163,7 @@ def create_tables_master():
 	
 def create_tables_result():
 	#Open database connection to CREATE TABLES for result schema
-	db = pymysql.connect("localhost","root","arijit","results")
+	db = pymysql.connect("localhost","root","bell","results")
 	#Create cursor for db connection
 	cursor = db.cursor()
 
@@ -198,7 +198,7 @@ def create_tables_result():
 	# Query to wifi_test_param_loads table under create results schema
 	queryParamLoads = "CREATE TABLE wifi_test_param_loads ( \
 	  `loads_id` INT NOT NULL AUTO_INCREMENT, \
-	  `loads` INT NOT NULL, \
+	  `loads` FLOAT NOT NULL, \
 	  `test_id` INT NOT NULL, \
 	  PRIMARY KEY (`loads_id`))"
 	cursor.execute(queryParamLoads)
@@ -281,7 +281,7 @@ def create_tables_result():
 def create_views_master(): # method to create views under master schema
 
 	#Open database connection to create VIEWS for master schema
-	db = pymysql.connect("localhost","root","arijit","master")
+	db = pymysql.connect("localhost","root","bell","master")
 	#Create cursor for db connection
 	cursor = db.cursor()
 	# Query to create wifi_test_param_view under master schema
@@ -339,7 +339,7 @@ def create_views_master(): # method to create views under master schema
 
 def create_views_result(): 
 	#Open database connection to create VIEWS for result schema
-	db = pymysql.connect("localhost","root","arijit","results")
+	db = pymysql.connect("localhost","root","bell","results")
 	#Create cursor for db connection
 	cursor = db.cursor()
 	# Query to create wifi_test_param_view under results schema
