@@ -18,9 +18,9 @@ def insertParams(srvr_details, params, date, testDuration):
 	cursor = db.cursor()
 	query = "INSERT INTO wifi_test_param_main(date_ts, test_name, test_type, ssid, pw, directory, ap , apver, direction, channel, expectConn, source, destination, \
 		 duration, ss, bw, gi, eth_dut, w_dut, w_grouptype, test_duration) \
-		 VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%s', '%d', '%d', '%d', '%s', '%s', '%s', '%s', '%d')" % \
+		 VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%s', '%d', '%d', '%d', '%s', '%s', '%s', '%s', '%s')" % \
 		 (date, params[0], params[1], params[2], params[3], params[4].replace('\\', '\\\\'), params[6], params[7], params[5], int(params[8]), params[9], params[10], \
-		 params[11], int(params[12]), int(params[13]), int(params[14]), params[15], params[16], params[17], params[18], int(testDuration))
+		 params[11], int(params[12]), int(params[13]), int(params[14]), params[15], params[16], params[17], params[18], testDuration)
 		
 	#execute SQL query for inserting values                                  #change above after d
 	cursor.execute(query)
@@ -35,12 +35,12 @@ def insertMcs(srvr_details, mcs, params, date):
 	db = pymysql.connect(srvr_details[4],srvr_details[5],srvr_details[6],"results")
 	#prepare a cursor object using cursor() method
 	cursor = db.cursor()		
-	query_test_id = "SELECT test_id FROM results.wifi_test_param_main WHERE test_name = '%s' AND direction = '%s' AND date_ts='%s'" % \
-					(params[0] , params[5], date)
+	query_test_id = "SELECT test_id FROM results.wifi_test_param_main WHERE test_name = '%s' AND direction = '%s' AND date_ts='%s' \
+						ORDER BY test_id DESC LIMIT 1" % (params[0] , params[5], date)
 	
 	#execute SQL query for fetching test_id
 	cursor.execute(query_test_id)
-	result_test_id = str(cursor.fetchone()[0])
+	result_test_id = cursor.fetchone()[0]
 	for i in range(len(mcs)):
 		query = "INSERT INTO wifi_test_param_mcs(mcs, test_id) \
 					VALUES ('%d', '%d')" % (int(mcs[i]), int(result_test_id))
@@ -51,6 +51,7 @@ def insertMcs(srvr_details, mcs, params, date):
 		#commit changes made to database after inserting values
 		db.commit()
 	db.close()
+	return result_test_id
 
 # Inserting the loads values
 def insertLoads(srvr_details, loads, params, date):
@@ -58,15 +59,15 @@ def insertLoads(srvr_details, loads, params, date):
 	db = pymysql.connect(srvr_details[4],srvr_details[5],srvr_details[6],"results")
 	#prepare a cursor object using cursor() method
 	cursor = db.cursor()		
-	query_test_id = "SELECT test_id FROM results.wifi_test_param_main WHERE test_name = '%s' AND direction = '%s' AND date_ts='%s'" % \
-					(params[0] , params[5], date)
+	query_test_id = "SELECT test_id FROM results.wifi_test_param_main WHERE test_name = '%s' AND direction = '%s' AND date_ts='%s' \
+						ORDER BY test_id DESC LIMIT 1" % (params[0] , params[5], date)
 	
 	#execute SQL query for fetching test_id
 	cursor.execute(query_test_id)
-	result_test_id = str(cursor.fetchone()[0])
+	result_test_id = cursor.fetchone()[0]
 	for i in range(len(loads)):
 		query = "INSERT INTO wifi_test_param_loads(loads, test_id) \
-					VALUES ('%d', '%d')" % (int(loads[i]), int(result_test_id))
+					VALUES ('%f', '%d')" % (float(loads[i]), int(result_test_id))
 		
 		#execute SQL query for inserting values
 		cursor.execute(query)
@@ -81,8 +82,8 @@ def insertFrames(srvr_details, frames, params, throughput_multiplier, testname, 
 	db = pymysql.connect(srvr_details[4],srvr_details[5],srvr_details[6],"results")
 	#prepare a cursor object using cursor() method
 	cursor = db.cursor()		
-	query_test_id = "SELECT test_id FROM results.wifi_test_param_main WHERE test_name = '%s' AND direction = '%s' AND date_ts='%s'" % \
-					(params[0] , params[5], date)
+	query_test_id = "SELECT test_id FROM results.wifi_test_param_main WHERE test_name = '%s' AND direction = '%s' AND date_ts='%s' \
+						ORDER BY test_id DESC LIMIT 1" % (params[0] , params[5], date)
 	
 	#execute SQL query to fetch test_id
 	cursor.execute(query_test_id)
@@ -127,6 +128,7 @@ Parameters passed :
 	filename				- filepath for the .bat file
 """
 def parseBatFile(srvr_details, testname, direction, date, throughput_multiplier, filename, testDuration):
+	print "Parsed Bat File"
 	with open(filename, 'r') as file:
 		params = []
 		for line in file:
@@ -140,7 +142,7 @@ def parseBatFile(srvr_details, testname, direction, date, throughput_multiplier,
 						mFolder = "DataMcsIndex"
 				if 'TP.tcl' in x:
 					params.append('TP')
-				if 'Lat.tcl' in x:
+				if 'Lat.tcl' in x or 'LAT.tcl' in x:
 					params.append('LAT')
 				if 'RR.tcl' in x:
 					params.append('RR')
@@ -153,11 +155,11 @@ def parseBatFile(srvr_details, testname, direction, date, throughput_multiplier,
 				if 'pw'in x:
 					pw = x.split()
 					params.append(pw[2].strip('"'))
-				if 'save' in x:
+				if 'savepcaps' not in x and 'save' in x:
 					save = x.split()
 					params.append(save[2].strip('"'))
 					params.append(save[2].strip('" ')[-2:])
-				if 'ap' in x:
+				if 'savepcaps' not in x and 'ap' in x:
 					ap = x.split()
 					params.append(ap[2].strip('"'))
 					continue
@@ -179,7 +181,7 @@ def parseBatFile(srvr_details, testname, direction, date, throughput_multiplier,
 				if 'duration' in x:
 					duration = x.split()
 					params.append(duration[2].strip('"'))
-				if 'ss' in x:
+				if 'ss-' not in x and 'ss' in x:
 					ss = x.split()
 					params.append(ss[2].strip('"'))
 				if 'bw' in x:
@@ -219,6 +221,7 @@ def parseBatFile(srvr_details, testname, direction, date, throughput_multiplier,
 							if loads_val[i].strip('"') != '':
 								loads.append(loads_val[i].strip('"'))				# "loads" data value to be inserted into DB field after extracting the "test_id" for each test case
 				if 'AC' not in x and x.startswith('::') and 'N' not in x and x.startswith('::'):
+
 					if (params[0] == testname and params[5] == direction):
 						"""
 						Calling method "insertParams" to insert data into wifi_test_param_main table
@@ -239,7 +242,7 @@ def parseBatFile(srvr_details, testname, direction, date, throughput_multiplier,
 						 	params			- Parameters parsed from .bat file as list,
 						"""
 						Logger.logMessage ("Inserting data into MCS table for " + testname)
-						insertMcs(srvr_details, mcs, params, date)
+						test_id = insertMcs(srvr_details, mcs, params, date)
 						Logger.logMessage ("Completed inserting data into MCS table for " + testname)
 						
 						"""
@@ -270,3 +273,16 @@ def parseBatFile(srvr_details, testname, direction, date, throughput_multiplier,
 					del params[:]
 					
 					continue
+
+	return test_id
+
+
+if __name__=='__main__':
+		srvr_details = ["10.66.41.2","22","automation-user1","Fa$terThanL1ght","localhost","root","bell"]
+		testname = "N-RR-2.4G-40MHz-1ss-11c"
+		direction = "DS"
+		date = "20170907-130749"
+		throughput_multiplier = 0
+		filename = "C:/Bell_HomeHub_Automation/Bell_Homehub_Automation_TestCommand/TC_20170907-130749/N-RR-2.4G-40MHz-1ss-11c.bat"
+		testDuration = 1
+		parseBatFile(srvr_details, testname, direction, date, throughput_multiplier, filename, testDuration)

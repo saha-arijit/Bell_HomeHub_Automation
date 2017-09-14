@@ -1,13 +1,20 @@
 *** Variables ***
-${var_wahostname}    52.14.193.76    # WA Host Name - Hostname of the Wave Automation Server
-${var_wausername}    Administrator    # WA User Name - Username of the Wave Automation Server
-${var_wapassword}    bellserver2!    # WA Password - Password for the Wave Automation Server
+${var_wahostname}    10.66.41.2    # WA Host Name - Hostname of the Wave Automation Server
+${var_wausername}    automation-user1    # WA User Name - Username of the Wave Automation Server
+${var_wapassword}    Fa$terThanL1ght    # WA Password - Password for the Wave Automation Server
 ${var_waportnumber}    22    # WA Port Number - Port Number for SCP to Wave Automation Server
 ${var_dbhostname}    localhost    # DB Host Name - Host name for Database server
 ${var_dbusername}    root    # DB Username - Username for DB connection
-${var_dbpassword}    arijit    # DB Password - Password for the DB connection
+${var_dbpassword}    bell    # DB Password - Password for the DB connection
 ${var_localDBBackup}    /Bell_HomeHub_Automation/Bell_HomeHub_Automation_Backup/    # Local DB Backup - Location on DB Backup files in Robot Server
-${var_backuphostname}    52.14.193.76    # DB BackUp Host Name - Hostname for server to store Database Backup
-${var_backupusername}    Administrator    # DB Backup User Name - User Name for server to store DB Backup
-${var_backuppassword}    bellserver2!    # DB Backup Password - Password for server to store DB Backup
+${var_backuphostname}    10.66.41.2    # DB BackUp Host Name - Hostname for server to store Database Backup
+${var_backupusername}    automation-user1    # DB Backup User Name - User Name for server to store DB Backup
+${var_backuppassword}    Fa$terThanL1ght    # DB Backup Password - Password for server to store DB Backup
 ${var_backupportnumber}    22    # DB Backup SCP Port - Port Number for SCP to store DB Backup
+${var_ssid_in}    BELL110    # SSID
+${var_pw_in}      testtest    # Password To Connect SSID
+${var_ap_in}      HH3000    # AP Details
+${var_apver_in}    testtest    # Version Details
+${var_waversion}    4.6    # Version number of WaveAutomation server
+${var_wasshkey}    sadokdmnWedfxdf    # SSH key of WaveAutomation server
+${var_debug_level_in}    2    #Stores Debug Level

@@ -133,13 +133,16 @@ class testParameterValidation:
                 print "!!!!!TPV!!!!! In FrameSize input %s parameter is not valid" %frameSize
                 
   
-        # validates global_test_type_in
+        # validates global_expectConn_in
         try:
-            if not (global_test_type_in.upper() == "MAXCLIENT" and global_expectConn_in != "102"):
-                print "Expected Connection Parameter value is Valid"
-            else:
+            if (global_test_type_in.upper() == "MAXCLIENT" and len(global_expectConn_in) > 0 and str(global_expectConn_in) == "102"):
+                    print "Expected Connection Parameter value is Valid"
+            elif (global_test_type_in.upper() == "TP" or global_test_type_in.upper() == "RR" or global_test_type_in.upper() == "LAT"):
+                    pass
+            else :
                 raise ValueError
         except ValueError:  
+            IsParamValid = False
             print "!!!!!TPV!!!!! Expected Connection`Parameter value is not Valid %s" %global_expectConn_in
             
         
