@@ -1,0 +1,614 @@
+
+C:\Program Files (x86)\IxVeriWave\WaveAutomate\automation_6.11-118_2017.06.30.08-admin_windows\automation\conf\HH3000>tclsh ..\..\bin\vw_auto.tcl -f MaxClient.tcl --var ssid "BELL110" --var pw "testtest" --var save "C:\WifiResults\HH3000\testtest\BELL110\MaxClient\DS" --var ap "HH3000" --var apver "testtest" --var channel "6" --var frameSize "512" --var loads "" --var expectConn "102" --var source "W_N" --var destination "ETH" --var duration "5" --var mcs "7" --var ss "1" --var bw "40" --var gi "short" --var eth_dut "generic_dut_1" --var w_dut "generic_dut_0" --var w_grouptype "802.11ac" --savepcaps --debug 2 
+####
+#### WaveAutomation version 6.11-118_2017.06.30.08-admin
+####
+#### Starting automated test run at 20170916-001749.
+#### Using config file MaxClient.tcl
+####
+
+###
+### BEGIN testcase 1 at 20170916-001750:
+
+### BEGIN DUT configuration for testcase 1
+### Configuring DUT for group W_N testcase 1
+### Configuring DUT for group ETH testcase 1
+### END DUT configuration for testcase 1 rc = 0
+### BEGIN run of testcase 1
+### Building WML file for testcase 1
+Generating WML file. This may take some time.
+Schema Validation success on port 10.66.41.4_card4_port1.
+
+Schema Validation success on port 10.66.41.4_card3_port1.
+
+Finished generating WML file, going to execute unicast_max_client_capacity.
+Detected keyboard library.  Press <ESC> to abort test.
+loaded WML data, executing test: unicast_max_client_capacity
+Reserving ports for the test
+Schema Validation success on port 10.66.41.4_card4_port1.
+Schema Validation success on port 10.66.41.4_card3_port1.
+
+Completed: Ethernet link is up
+WaveEngine Version: 1.230, 2007.09.06.00
+Framework Version: 6.11-118, 2017.06.30.07
+Firmware Version: 6.11-118, 2017.06.29.14
+
+Setting test for 102 clients per card
+
+Trial 1: 512 byte frames at 10.0 pkts/sec for 102 clients
+Populating SSID/BSSID tables waiting 1.5 seconds
+Populating SSID/BSSID tables waiting 0.5 seconds                               
+Populating SSID/BSSID tables waiting 0.0 seconds                               
+Port ('10.66.41.4_card4_port1') Configured Information follows:
+
+Band: 2400, Bandwidth: 40, Primary Center Frequency: N/A, Channel: 6, based on user selection on Port.
+
+
+
+Non 11ac port 10.66.41.4_card3_port1
+DUT/SUT recovery time, waiting 5.0 seconds
+DUT/SUT recovery time, waiting 4.0 seconds                                     
+DUT/SUT recovery time, waiting 3.0 seconds                                     
+DUT/SUT recovery time, waiting 2.0 seconds                                     
+DUT/SUT recovery time, waiting 1.0 seconds                                     
+DUT/SUT recovery time, waiting 0.0 seconds                                     
+IPv4toInt() input error: 1 is not in the form x.x.x.x
+NX 2017-09-16T00:18:30.999991339 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:31.092823250 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:31.195115859 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:31.295037218 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:31.389245001 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:31.473007323 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:31.557564997 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:31.645254355 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:31.741566595 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:31.840527497 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:31.935496271 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:32.045001250 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:32.149249136 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:32.237230150 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:32.337211293 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:32.432599953 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:32.532165121 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:32.627260448 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:32.724219419 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:32.823636803 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:32.913356027 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:32.998543669 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:33.077649533 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:33.176516009 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:33.275664365 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:33.372910244 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:33.460632845 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:33.546338710 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:33.632752207 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:33.709481233 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:33.796530285 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:33.885502207 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:33.968874256 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:34.069893520 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:34.162446065 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:34.262669417 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:34.357826763 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:34.447318025 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:34.542668691 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:34.629074645 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:34.718152446 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:34.808000178 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:34.891154881 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:34.981930385 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:35.079517648 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:35.172655183 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:35.263261392 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:35.355353823 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:35.450334330 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:35.534662087 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:35.619008002 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:35.711456344 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:35.820471875 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:35.913989068 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:36.007369931 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:36.105864851 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:36.194201497 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:36.289209103 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:36.383455998 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:36.479653699 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:36.571745571 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:36.664100605 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:36.757771448 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:36.847628958 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:36.941684208 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:37.026697527 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:37.118912599 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:37.212990477 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:37.307575963 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:37.396474971 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:37.480323337 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:37.563711868 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:37.649084730 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:37.736950366 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:37.828695267 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:37.917116002 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:38.014089220 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:38.112209512 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:38.214220801 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:38.303486057 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:38.404674895 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:38.497923618 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:38.596878653 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:38.693765269 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:38.787794538 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:38.886031884 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:38.975495768 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:39.070344974 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:39.158855664 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:39.256769226 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:39.342127002 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:39.434109363 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:39.515338402 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:39.611912128 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:39.704223022 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:39.795673193 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:39.885908963 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:39.976963273 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:40.080223883 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:40.174882841 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:40.271116580 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:18:40.356098331 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+Completed: Created 102 clients in 9.50 seconds
+IPv4toInt() input error: 1 is not in the form x.x.x.x
+Completed: Created 1 clients in 0.01 seconds
+
+Attempting to connect the client(s)
+7102.13ms Mobile client W_N_001 achieved the state DHCP and is connected       
+5920.46ms Mobile client W_N_002 achieved the state DHCP and is connected       
+5948.64ms Mobile client W_N_003 achieved the state DHCP and is connected       
+5968.53ms Mobile client W_N_004 achieved the state DHCP and is connected       
+5966.23ms Mobile client W_N_005 achieved the state DHCP and is connected       
+5968.82ms Mobile client W_N_006 achieved the state DHCP and is connected       
+5973.24ms Mobile client W_N_007 achieved the state DHCP and is connected       
+5956.84ms Mobile client W_N_008 achieved the state DHCP and is connected       
+5965.49ms Mobile client W_N_009 achieved the state DHCP and is connected       
+5973.12ms Mobile client W_N_010 achieved the state DHCP and is connected       
+5969.05ms Mobile client W_N_011 achieved the state DHCP and is connected       
+5968.64ms Mobile client W_N_012 achieved the state DHCP and is connected       
+5956.00ms Mobile client W_N_013 achieved the state DHCP and is connected       
+5969.30ms Mobile client W_N_014 achieved the state DHCP and is connected       
+5970.72ms Mobile client W_N_015 achieved the state DHCP and is connected       
+5970.25ms Mobile client W_N_016 achieved the state DHCP and is connected       
+5970.00ms Mobile client W_N_017 achieved the state DHCP and is connected       
+5952.30ms Mobile client W_N_018 achieved the state DHCP and is connected       
+5975.10ms Mobile client W_N_019 achieved the state DHCP and is connected       
+5966.20ms Mobile client W_N_020 achieved the state DHCP and is connected       
+5970.41ms Mobile client W_N_021 achieved the state DHCP and is connected       
+5966.74ms Mobile client W_N_022 achieved the state DHCP and is connected       
+5955.46ms Mobile client W_N_023 achieved the state DHCP and is connected       
+5963.78ms Mobile client W_N_024 achieved the state DHCP and is connected       
+5968.70ms Mobile client W_N_025 achieved the state DHCP and is connected       
+5967.07ms Mobile client W_N_026 achieved the state DHCP and is connected       
+5970.38ms Mobile client W_N_027 achieved the state DHCP and is connected       
+5954.08ms Mobile client W_N_028 achieved the state DHCP and is connected       
+5967.43ms Mobile client W_N_029 achieved the state DHCP and is connected       
+5972.23ms Mobile client W_N_030 achieved the state DHCP and is connected       
+5967.69ms Mobile client W_N_031 achieved the state DHCP and is connected       
+5965.31ms Mobile client W_N_032 achieved the state DHCP and is connected       
+5959.11ms Mobile client W_N_033 achieved the state DHCP and is connected       
+5962.37ms Mobile client W_N_034 achieved the state DHCP and is connected       
+5965.85ms Mobile client W_N_035 achieved the state DHCP and is connected       
+5967.12ms Mobile client W_N_036 achieved the state DHCP and is connected       
+5969.57ms Mobile client W_N_037 achieved the state DHCP and is connected       
+5957.58ms Mobile client W_N_038 achieved the state DHCP and is connected       
+5971.95ms Mobile client W_N_039 achieved the state DHCP and is connected       
+5967.62ms Mobile client W_N_040 achieved the state DHCP and is connected       
+5971.41ms Mobile client W_N_041 achieved the state DHCP and is connected       
+5968.07ms Mobile client W_N_042 achieved the state DHCP and is connected       
+5953.73ms Mobile client W_N_043 achieved the state DHCP and is connected       
+5972.69ms Mobile client W_N_044 achieved the state DHCP and is connected       
+5968.33ms Mobile client W_N_045 achieved the state DHCP and is connected       
+5966.74ms Mobile client W_N_046 achieved the state DHCP and is connected       
+5970.83ms Mobile client W_N_047 achieved the state DHCP and is connected       
+5956.48ms Mobile client W_N_048 achieved the state DHCP and is connected       
+5970.97ms Mobile client W_N_049 achieved the state DHCP and is connected       
+5965.43ms Mobile client W_N_050 achieved the state DHCP and is connected       
+W_N_051 failed to connect
+Expected DHCP, achieved AUTH
+Information from the SUT - status code: 17
+Client name: W_N_051
+Type: Mobile
+Port: 10.66.41.4_card4_port1
+MAC address: 00:41:dd:01:00:32
+IP address: DHCP
+Target SSID: BELL110
+Target BSSID: 84:a1:d1:5c:e8:76
+Security: on
+AP authentication method: open
+Key method: wpa2
+Network authentication method: psk
+Encryption method: ccmp
+Connection transcript: 
+Probe request: 0ms
+Probe response: 0.2664ms
+Authentication request: 10.3235ms
+Authentication response: 0.7812ms
+Association request: 10.2501ms
+Association response: 3.6167ms
+EAPOL pairwise key installed: FAILED
+DHCP discover: -
+DHCP offer: -
+DHCP request: -
+DHCP ACK: -
+             ETH   ASSOC   EAPOL    DHCP
+Achieved:      0       0       0       0
+50 client(s) connected, 53 failed
+Setting up the flow for 50 client(s)
+Exchanging ARPs or IPv6 connections, Idle: 0 Active: 0 Completed: 1 (5.0 secs remaining)                                                                       
+Completed: 1 flows finished ARP or IPv6 connection in 0.02 seconds
+Trial:1 FrameSize: 512 ILOAD:10.0 pkts/sec, Starting learning phase
+
+ILOAD=10.0pkts/sec, OLOAD=17.0pkts/sec, FR=29.0pkts/sec, (TX  0.5 secs)        
+ILOAD=10.0pkts/sec, OLOAD=17.0pkts/sec, FR=40.0pkts/sec, (TX  1.0 secs)        
+ILOAD=10.0pkts/sec, OLOAD=23.0pkts/sec, FR=30.0pkts/sec, (TX  2.0 secs)        
+
+Trial 1: Transmitting 512 byte frames at 10.0 pkts/sec for 50 clients
+
+ILOAD=10.0pkts/sec, OLOAD=22.0pkts/sec, FR=27.0pkts/sec, (TX  0.5 secs)        
+ILOAD=10.0pkts/sec, OLOAD=22.0pkts/sec, FR=27.0pkts/sec, (TX  1.0 secs)        
+ILOAD=10.0pkts/sec, OLOAD=27.0pkts/sec, FR=30.0pkts/sec, (TX  1.5 secs)        
+ILOAD=10.0pkts/sec, OLOAD=27.0pkts/sec, FR=30.0pkts/sec, (TX  2.0 secs)        
+ILOAD=10.0pkts/sec, OLOAD=29.0pkts/sec, FR=43.0pkts/sec, (TX  2.5 secs)        
+ILOAD=10.0pkts/sec, OLOAD=29.0pkts/sec, FR=43.0pkts/sec, (TX  3.0 secs)        
+ILOAD=10.0pkts/sec, OLOAD=22.0pkts/sec, FR=24.0pkts/sec, (TX  3.5 secs)        
+ILOAD=10.0pkts/sec, OLOAD=22.0pkts/sec, FR=24.0pkts/sec, (TX  4.0 secs)        
+ILOAD=10.0pkts/sec, OLOAD=26.0pkts/sec, FR=43.0pkts/sec, (RX  5.5 secs)        
+ILOAD=10.0pkts/sec, OLOAD=26.0pkts/sec, FR=43.0pkts/sec, (RX  6.0 secs)        
+ILOAD=10.0pkts/sec, OLOAD=12.0pkts/sec, FR=22.0pkts/sec, (RX  6.5 secs)        
+ILOAD=10.0pkts/sec, OLOAD=12.0pkts/sec, FR=22.0pkts/sec, (RX  7.0 secs)        
+ILOAD=10.0pkts/sec, OLOAD=12.0pkts/sec, FR=22.0pkts/sec, (RX  7.0 secs)        
+
+Warning: No frames were received; Forwarding Rate is zero.
+Completed: Forwarding rate for 512 byte frames for 50 clients is 0.0 (or 0.000 bits/sec)
+Frame Loss Rate for one of the client is 100.00%
+Frame loss percentage is greater than accepted loss tolerance
+Disassociating 1 client and retrying
+
+Trial 1: Transmitting 512 byte frames at 10.0 pkts/sec for 49 clients
+
+ILOAD=10.0pkts/sec, OLOAD=0.000pkts/sec, FR=32.0pkts/sec, (TX  0.5 secs)       
+ILOAD=10.0pkts/sec, OLOAD=44.0pkts/sec, FR=65.0pkts/sec, (TX  1.0 secs)        
+ILOAD=10.0pkts/sec, OLOAD=44.0pkts/sec, FR=45.0pkts/sec, (TX  1.5 secs)        
+ILOAD=10.0pkts/sec, OLOAD=22.0pkts/sec, FR=24.0pkts/sec, (TX  2.0 secs)        
+ILOAD=10.0pkts/sec, OLOAD=22.0pkts/sec, FR=24.0pkts/sec, (TX  2.5 secs)        
+ILOAD=10.0pkts/sec, OLOAD=27.0pkts/sec, FR=28.0pkts/sec, (TX  3.0 secs)        
+ILOAD=10.0pkts/sec, OLOAD=27.0pkts/sec, FR=40.0pkts/sec, (TX  3.5 secs)        
+ILOAD=10.0pkts/sec, OLOAD=30.0pkts/sec, FR=44.0pkts/sec, (TX  4.0 secs)        
+ILOAD=10.0pkts/sec, OLOAD=22.0pkts/sec, FR=23.0pkts/sec, (RX  5.5 secs)        
+ILOAD=10.0pkts/sec, OLOAD=19.0pkts/sec, FR=25.0pkts/sec, (RX  6.0 secs)        
+ILOAD=10.0pkts/sec, OLOAD=19.0pkts/sec, FR=35.0pkts/sec, (RX  6.5 secs)        
+ILOAD=10.0pkts/sec, OLOAD=22.0pkts/sec, FR=40.0pkts/sec, (RX  7.0 secs)        
+ILOAD=10.0pkts/sec, OLOAD=22.0pkts/sec, FR=40.0pkts/sec, (RX  7.0 secs)        
+
+Warning: No frames were transmitted; Frame Loss Rate is invalid.
+
+Warning: No frames were received; Forwarding Rate is zero.
+Completed: Forwarding rate for 512 byte frames for 49 clients is 0.0 (or 0.000 bits/sec)
+Average frame loss rate for 49 clients is 0.00%
+Completed: Maximum Number of Clients = 49 at Framesize = 512 Bytes and Intended Load = 10.00 pkts/sec.
+IPv4toInt() input error: 1 is not in the form x.x.x.x
+IPv4toInt() input error: 1 is not in the form x.x.x.x
+Completed: Report C:/WifiResults/HH3000/testtest/BELL110/MaxClient/DS/20170916-001749/unicast_max_client_capacity\MaximumClientCapacity\Results_unicast_maximum_client_capacity.pdf generated.
+Saving 10.66.41.4_card4_port1 to file C:/WifiResults/HH3000/testtest/BELL110/MaxClient/DS/20170916-001749/unicast_max_client_capacity\MaximumClientCapacity\Hdwrlog_lib-10.66.41.4_card4_port1-ch6 ...71.7Mbytes
+Saving 10.66.41.4_card3_port1 to file C:/WifiResults/HH3000/testtest/BELL110/MaxClient/DS/20170916-001749/unicast_max_client_capacity\MaximumClientCapacity\Hdwrlog_lib-10.66.41.4_card3_port1 ...1.97Mbytes
+Thank you for using VeriWave (http://www.veriwave.com)
+### END run of testcase 1
+### END Testcase 1
+### Testcase 1 Passed at 20170916-002801.
+### Intermediate Results: PASS: 1 FAIL: 0 ABORT: 0 Skipped: 0  
+
+#### Automated test run completed at 20170916-002801.
+#### Config file used: MaxClient.tcl
+
+#### Test Summary: 0 failure(s), 0 abort(s), 0 skip(s) during 1 test(s).
+
+Result Test                 
+###### #################### 
+PASS   unicast_max_client_c 
+
+#### Full logs are at:C:/WifiResults/HH3000/testtest/BELL110/MaxClient/DS/20170916-001749/output.log
+
+C:\Program Files (x86)\IxVeriWave\WaveAutomate\automation_6.11-118_2017.06.30.08-admin_windows\automation\conf\HH3000>tclsh ..\..\bin\vw_auto.tcl -f MaxClient.tcl --var ssid "BELL110" --var pw "testtest" --var save "C:\WifiResults\HH3000\testtest\BELL110\MaxClient\US" --var ap "HH3000" --var apver "testtest" --var channel "6" --var frameSize "512" --var loads "" --var expectConn "102" --var source "ETH" --var destination "W_N" --var duration "5" --var mcs "7" --var ss "1" --var bw "40" --var gi "short" --var eth_dut "generic_dut_1" --var w_dut "generic_dut_0" --var w_grouptype "802.11ac" --savepcaps --debug 2 
+####
+#### WaveAutomation version 6.11-118_2017.06.30.08-admin
+####
+#### Starting automated test run at 20170916-002805.
+#### Using config file MaxClient.tcl
+####
+
+###
+### BEGIN testcase 1 at 20170916-002806:
+
+### BEGIN DUT configuration for testcase 1
+### Configuring DUT for group ETH testcase 1
+### Configuring DUT for group W_N testcase 1
+### END DUT configuration for testcase 1 rc = 0
+### BEGIN run of testcase 1
+### Building WML file for testcase 1
+Generating WML file. This may take some time.
+Schema Validation success on port 10.66.41.4_card3_port1.
+
+Schema Validation success on port 10.66.41.4_card4_port1.
+
+Finished generating WML file, going to execute unicast_max_client_capacity.
+Detected keyboard library.  Press <ESC> to abort test.
+loaded WML data, executing test: unicast_max_client_capacity
+Reserving ports for the test
+Schema Validation success on port 10.66.41.4_card3_port1.
+Schema Validation success on port 10.66.41.4_card4_port1.
+
+Completed: Ethernet link is up
+WaveEngine Version: 1.230, 2007.09.06.00
+Framework Version: 6.11-118, 2017.06.30.07
+Firmware Version: 6.11-118, 2017.06.29.14
+
+Setting test for 102 clients per card
+
+Trial 1: 512 byte frames at 10.0 pkts/sec for 102 clients
+Populating SSID/BSSID tables waiting 1.5 seconds
+Populating SSID/BSSID tables waiting 0.5 seconds                               
+Populating SSID/BSSID tables waiting 0.0 seconds                               
+Non 11ac port 10.66.41.4_card3_port1
+Port ('10.66.41.4_card4_port1') Configured Information follows:
+
+Band: 2400, Bandwidth: 40, Primary Center Frequency: N/A, Channel: 6, based on user selection on Port.
+
+
+
+DUT/SUT recovery time, waiting 5.0 seconds
+DUT/SUT recovery time, waiting 4.0 seconds                                     
+DUT/SUT recovery time, waiting 3.0 seconds                                     
+DUT/SUT recovery time, waiting 2.0 seconds                                     
+DUT/SUT recovery time, waiting 1.0 seconds                                     
+DUT/SUT recovery time, waiting 0.0 seconds                                     
+IPv4toInt() input error: 1 is not in the form x.x.x.x
+Completed: Created 1 clients in 0.02 seconds
+IPv4toInt() input error: 1 is not in the form x.x.x.x
+NX 2017-09-16T00:28:46.999986591 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:47.106802122 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:47.198896229 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:47.293250120 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:47.383223008 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:47.482261852 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:47.585606551 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:47.687403288 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:47.793877434 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:47.906564941 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:48.010300471 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:48.114974669 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:48.216606860 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:48.318418123 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:48.407699862 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:48.503128191 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:48.587231059 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:48.672306676 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:48.800001118 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:48.890196659 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:48.980589712 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:49.067721736 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:49.153737137 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:49.236766405 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:49.322928473 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:49.412384535 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:49.501361766 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:49.592015745 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:49.682653801 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:49.769235476 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:49.868244428 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:49.961197024 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:50.055616007 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:50.153091525 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:50.247969505 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:50.347007232 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:50.446640006 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:50.534907090 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:50.616092269 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:50.692532152 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:50.779449902 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:50.874350232 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:50.962983005 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:51.056672287 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:51.142472298 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:51.233612932 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:51.325374035 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:51.413196091 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:51.506435595 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:51.606907582 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:51.704782871 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:51.797011352 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:51.877148074 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:51.966499374 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:52.045960311 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:52.129857007 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:52.231261236 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:52.323134645 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:52.416507964 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:52.507334312 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:52.593334907 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:52.686161789 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:52.771604771 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:52.860080262 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:52.951476235 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:53.048748095 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:53.148959994 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:53.256177531 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:53.350164616 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:53.438383370 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:53.527386861 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:53.609762414 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:53.695299822 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:53.774755451 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:53.866298650 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:53.960010840 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:54.057716833 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:54.154093887 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:54.255892858 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:54.354588922 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:54.450494965 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:54.548673365 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:54.650035689 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:54.751375664 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:54.857180731 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:54.951261962 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:55.038932043 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:55.129402201 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:55.226662886 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:55.323199737 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:55.404218693 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:55.486828913 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:55.567133253 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:55.655346699 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:55.728097566 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:55.802227378 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:55.888867720 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:55.981875350 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:56.076064137 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:56.169378790 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:56.262152592 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+NX 2017-09-16T00:28:56.362027856 portifSetMCMonitorRoaming: getNumInstances 1, getAnchorPort -1
+Completed: Created 102 clients in 9.50 seconds
+
+Attempting to connect the client(s)
+133.24ms Ethernet client ETH achieved the state DHCP and is connected          
+6042.66ms Mobile client W_N_001 achieved the state DHCP and is connected       
+5969.41ms Mobile client W_N_002 achieved the state DHCP and is connected       
+5964.06ms Mobile client W_N_003 achieved the state DHCP and is connected       
+5963.49ms Mobile client W_N_004 achieved the state DHCP and is connected       
+5967.27ms Mobile client W_N_005 achieved the state DHCP and is connected       
+5966.37ms Mobile client W_N_006 achieved the state DHCP and is connected       
+5969.87ms Mobile client W_N_007 achieved the state DHCP and is connected       
+5952.84ms Mobile client W_N_008 achieved the state DHCP and is connected       
+5969.83ms Mobile client W_N_009 achieved the state DHCP and is connected       
+5961.25ms Mobile client W_N_010 achieved the state DHCP and is connected       
+5969.42ms Mobile client W_N_011 achieved the state DHCP and is connected       
+5969.13ms Mobile client W_N_012 achieved the state DHCP and is connected       
+5955.81ms Mobile client W_N_013 achieved the state DHCP and is connected       
+5968.00ms Mobile client W_N_014 achieved the state DHCP and is connected       
+5966.95ms Mobile client W_N_015 achieved the state DHCP and is connected       
+5967.20ms Mobile client W_N_016 achieved the state DHCP and is connected       
+5965.79ms Mobile client W_N_017 achieved the state DHCP and is connected       
+5953.41ms Mobile client W_N_018 achieved the state DHCP and is connected       
+5967.26ms Mobile client W_N_019 achieved the state DHCP and is connected       
+5967.61ms Mobile client W_N_020 achieved the state DHCP and is connected       
+5968.61ms Mobile client W_N_021 achieved the state DHCP and is connected       
+5966.08ms Mobile client W_N_022 achieved the state DHCP and is connected       
+5953.95ms Mobile client W_N_023 achieved the state DHCP and is connected       
+5967.15ms Mobile client W_N_024 achieved the state DHCP and is connected       
+5966.20ms Mobile client W_N_025 achieved the state DHCP and is connected       
+5971.21ms Mobile client W_N_026 achieved the state DHCP and is connected       
+5971.93ms Mobile client W_N_027 achieved the state DHCP and is connected       
+5992.60ms Mobile client W_N_028 achieved the state DHCP and is connected       
+5930.77ms Mobile client W_N_029 achieved the state DHCP and is connected       
+5970.27ms Mobile client W_N_030 achieved the state DHCP and is connected       
+5970.56ms Mobile client W_N_031 achieved the state DHCP and is connected       
+5969.85ms Mobile client W_N_032 achieved the state DHCP and is connected       
+5954.60ms Mobile client W_N_033 achieved the state DHCP and is connected       
+5963.48ms Mobile client W_N_034 achieved the state DHCP and is connected       
+5960.16ms Mobile client W_N_035 achieved the state DHCP and is connected       
+5965.39ms Mobile client W_N_036 achieved the state DHCP and is connected       
+5970.24ms Mobile client W_N_037 achieved the state DHCP and is connected       
+5955.68ms Mobile client W_N_038 achieved the state DHCP and is connected       
+5968.66ms Mobile client W_N_039 achieved the state DHCP and is connected       
+5972.34ms Mobile client W_N_040 achieved the state DHCP and is connected       
+5967.56ms Mobile client W_N_041 achieved the state DHCP and is connected       
+5970.73ms Mobile client W_N_042 achieved the state DHCP and is connected       
+5952.85ms Mobile client W_N_043 achieved the state DHCP and is connected       
+5967.85ms Mobile client W_N_044 achieved the state DHCP and is connected       
+5972.76ms Mobile client W_N_045 achieved the state DHCP and is connected       
+5969.21ms Mobile client W_N_046 achieved the state DHCP and is connected       
+5970.44ms Mobile client W_N_047 achieved the state DHCP and is connected       
+5954.85ms Mobile client W_N_048 achieved the state DHCP and is connected       
+5969.91ms Mobile client W_N_049 achieved the state DHCP and is connected       
+5969.05ms Mobile client W_N_050 achieved the state DHCP and is connected       
+W_N_051 failed to connect
+Expected DHCP, achieved AUTH
+Information from the SUT - status code: 17
+Client name: W_N_051
+Type: Mobile
+Port: 10.66.41.4_card4_port1
+MAC address: 00:41:dd:02:00:32
+IP address: DHCP
+Target SSID: BELL110
+Target BSSID: 84:a1:d1:5c:e8:76
+Security: on
+AP authentication method: open
+Key method: wpa2
+Network authentication method: psk
+Encryption method: ccmp
+Connection transcript: 
+Probe request: 0ms
+Probe response: 0.2675ms
+Authentication request: 10.5016ms
+Authentication response: 0.7758ms
+Association request: 10.2591ms
+Association response: 1.7676ms
+EAPOL pairwise key installed: FAILED
+DHCP discover: -
+DHCP offer: -
+DHCP request: -
+DHCP ACK: -
+             ETH   ASSOC   EAPOL    DHCP
+Achieved:      0       0       0       0
+51 client(s) connected, 52 failed
+Setting up the flow for 51 client(s)
+Exchanging ARPs or IPv6 connections, Idle: 49 Active: 0 Completed: 1 (5.5 secs remaining)                                                                      
+Exchanging ARPs or IPv6 connections, Idle: 29 Active: 1 Completed: 20 (5.3 secs remaining)                                                                     
+Exchanging ARPs or IPv6 connections, Idle: 9 Active: 3 Completed: 38 (5.1 secs remaining)                                                                      
+Exchanging ARPs or IPv6 connections, Idle: 0 Active: 5 Completed: 45 (4.9 secs remaining)                                                                      
+Exchanging ARPs or IPv6 connections, Idle: 0 Active: 4 Completed: 46 (4.7 secs remaining)                                                                      
+Exchanging ARPs or IPv6 connections, Idle: 0 Active: 1 Completed: 49 (4.5 secs remaining)                                                                      
+Exchanging ARPs or IPv6 connections, Idle: 0 Active: 1 Completed: 49 (4.3 secs remaining)                                                                      
+Exchanging ARPs or IPv6 connections, Idle: 0 Active: 0 Completed: 50 (4.1 secs remaining)                                                                      
+Completed: 50 flows finished ARP or IPv6 connection in 1.45 seconds
+Trial:1 FrameSize: 512 ILOAD:10.0 pkts/sec, Starting learning phase
+
+ILOAD=10.0pkts/sec, OLOAD=58.0pkts/sec, FR=49.0pkts/sec, (TX  0.5 secs)        
+ILOAD=10.0pkts/sec, OLOAD=58.0pkts/sec, FR=49.0pkts/sec, (TX  1.0 secs)        
+ILOAD=10.0pkts/sec, OLOAD=224pkts/sec, FR=245pkts/sec, (TX  2.0 secs)          
+
+Trial 1: Transmitting 512 byte frames at 10.0 pkts/sec for 50 clients
+
+ILOAD=10.0pkts/sec, OLOAD=0.000pkts/sec, FR=0.000pkts/sec, (TX  0.5 secs)      
+ILOAD=10.0pkts/sec, OLOAD=367pkts/sec, FR=340pkts/sec, (TX  1.0 secs)          
+ILOAD=10.0pkts/sec, OLOAD=367pkts/sec, FR=340pkts/sec, (TX  1.5 secs)          
+ILOAD=10.0pkts/sec, OLOAD=525pkts/sec, FR=546pkts/sec, (TX  2.0 secs)          
+ILOAD=10.0pkts/sec, OLOAD=525pkts/sec, FR=546pkts/sec, (TX  2.5 secs)          
+ILOAD=10.0pkts/sec, OLOAD=512pkts/sec, FR=524pkts/sec, (TX  3.0 secs)          
+ILOAD=10.0pkts/sec, OLOAD=512pkts/sec, FR=524pkts/sec, (TX  3.5 secs)          
+ILOAD=10.0pkts/sec, OLOAD=513pkts/sec, FR=526pkts/sec, (TX  4.0 secs)          
+ILOAD=10.0pkts/sec, OLOAD=523pkts/sec, FR=548pkts/sec, (RX  5.5 secs)          
+ILOAD=10.0pkts/sec, OLOAD=180pkts/sec, FR=252pkts/sec, (RX  6.0 secs)          
+ILOAD=10.0pkts/sec, OLOAD=180pkts/sec, FR=252pkts/sec, (RX  6.5 secs)          
+ILOAD=10.0pkts/sec, OLOAD=12.0pkts/sec, FR=25.0pkts/sec, (RX  7.0 secs)        
+ILOAD=10.0pkts/sec, OLOAD=12.0pkts/sec, FR=25.0pkts/sec, (RX  7.0 secs)        
+Completed: Forwarding rate for 512 byte frames for 50 clients is 500.0 (or 2.05M bits/sec)
+Average frame loss rate for 50 clients is 0.00%
+Completed: Maximum Number of Clients = 50 at Framesize = 512 Bytes and Intended Load = 10.00 pkts/sec.
+IPv4toInt() input error: 1 is not in the form x.x.x.x
+IPv4toInt() input error: 1 is not in the form x.x.x.x
+Completed: Report C:/WifiResults/HH3000/testtest/BELL110/MaxClient/US/20170916-002805/unicast_max_client_capacity\MaximumClientCapacity\Results_unicast_maximum_client_capacity.pdf generated.
+Saving 10.66.41.4_card3_port1 to file C:/WifiResults/HH3000/testtest/BELL110/MaxClient/US/20170916-002805/unicast_max_client_capacity\MaximumClientCapacity\Hdwrlog_lib-10.66.41.4_card3_port1 ...4.06Mbytes
+Saving 10.66.41.4_card4_port1 to file C:/WifiResults/HH3000/testtest/BELL110/MaxClient/US/20170916-002805/unicast_max_client_capacity\MaximumClientCapacity\Hdwrlog_lib-10.66.41.4_card4_port1-ch6 ...75.3Mbytes
+Thank you for using VeriWave (http://www.veriwave.com)
+### END run of testcase 1
+### END Testcase 1
+### Testcase 1 Passed at 20170916-003820.
+### Intermediate Results: PASS: 1 FAIL: 0 ABORT: 0 Skipped: 0  
+
+#### Automated test run completed at 20170916-003820.
+#### Config file used: MaxClient.tcl
+
+#### Test Summary: 0 failure(s), 0 abort(s), 0 skip(s) during 1 test(s).
+
+Result Test                 
+###### #################### 
+PASS   unicast_max_client_c 
+
+#### Full logs are at:C:/WifiResults/HH3000/testtest/BELL110/MaxClient/US/20170916-002805/output.log

@@ -1,0 +1,2 @@
+N-TP-2.4G-40MHz-1ss-6c-mcs DS 0.8
+N-TP-2.4G-40MHz-1ss-6c-mcs US 0.8

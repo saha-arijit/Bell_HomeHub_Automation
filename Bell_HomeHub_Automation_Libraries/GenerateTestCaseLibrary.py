@@ -185,7 +185,7 @@ class GenerateTestCaseLibrary:
 
 
         
-    def CreateTestCommand(self,var_test_name_in, var_test_type_in, var_load_mode_in, var_direction_in, var_band_selection_in, var_channel_in, var_frameSize_in, var_loads_in, var_expectConn_in, var_source_in, var_destination_in, var_duration_in, var_mcs_in, var_ss_in, var_bw_in, var_gi_in, var_eth_dut_in, var_w_dut_in, var_w_grouptype_in, var_savepcaps_in, var_throughput_multiplier_in):
+    def CreateTestCommand(self,var_test_name_in, var_test_type_in, var_load_mode_in, var_direction_in, var_band_selection_in, var_channel_in, var_frameSize_in, var_loads_in, var_expectConn_in, var_source_in, var_destination_in, var_duration_in, var_mcs_in, var_ss_in, var_bw_in, var_gi_in, var_eth_dut_in, var_w_dut_in, var_w_grouptype_in, var_throughput_multiplier_in, var_savepcaps_in):
         """
             Function Name        : CreateTestCommand
             Function Description : Validates the test parameter entered by the user.
@@ -239,7 +239,11 @@ class GenerateTestCaseLibrary:
         global_eth_dut_in = var_eth_dut_in 
         global_w_dut_in = var_w_dut_in 
         global_w_grouptype_in = var_w_grouptype_in 
+        
         global_savepcaps_in = var_savepcaps_in 
+        if not var_throughput_multiplier_in:
+            var_throughput_multiplier_in = "0.9"
+        
         global_throughput_multiplier_in = var_throughput_multiplier_in
         if var_test_type_in !="TP":
             global_throughput_multiplier_in = None
@@ -524,15 +528,15 @@ class GenerateTestCaseLibrary:
             raise MyException(err)
         
         try:
-			if(global_direction_in == "1"):
-				saveTP.write(global_test_name_in+ " " + "DS "+ global_throughput_multiplier_in)
-				saveTP.write("\n")
-				saveTP.write(global_test_name_in+ " " + "US "+ global_throughput_multiplier_in)
-				saveTP.write("\n")
-			else:
-				saveTP.write(global_test_name_in+ " " + "DS "+ global_throughput_multiplier_in)
-				saveTP.write("\n")
-			
+            if(global_direction_in == "1"):
+                saveTP.write(global_test_name_in+ " " + "DS "+ global_throughput_multiplier_in)
+                saveTP.write("\n")
+                saveTP.write(global_test_name_in+ " " + "US "+ global_throughput_multiplier_in)
+                saveTP.write("\n")
+            else:
+                saveTP.write(global_test_name_in+ " " + "DS "+ global_throughput_multiplier_in)
+                saveTP.write("\n")
+            
         except ValueError as e:
             errMsg = "Value Error : %s " %(str(e) )
             raise MyException(err)

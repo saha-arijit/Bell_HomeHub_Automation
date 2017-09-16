@@ -5,7 +5,7 @@ ${var_wapassword}    Fa$terThanL1ght    # WA Password - Password for the Wave Au
 ${var_waportnumber}    22    # WA Port Number - Port Number for SCP to Wave Automation Server
 ${var_dbhostname}    localhost    # DB Host Name - Host name for Database server
 ${var_dbusername}    root    # DB Username - Username for DB connection
-${var_dbpassword}    bell    # DB Password - Password for the DB connection
+${var_dbpassword}    root    # DB Password - Password for the DB connection
 ${var_localDBBackup}    /Bell_HomeHub_Automation/Bell_HomeHub_Automation_Backup/    # Local DB Backup - Location on DB Backup files in Robot Server
 ${var_backuphostname}    10.66.41.2    # DB BackUp Host Name - Hostname for server to store Database Backup
 ${var_backupusername}    automation-user1    # DB Backup User Name - User Name for server to store DB Backup
