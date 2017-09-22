@@ -125,6 +125,8 @@ def executeCommandFile(server, user, password, SourceCmdFilePath, DestCmdFilePat
         cmd = "rm " + ExecLog 
         response = executeCmdOnSSH(server, port, user, password, cmd)
         
+        CheckNCopyFileOnServer(server, port, user, password, 'C:/Users/automation-user1/runner.bat')
+        
         secureCopyToServer(server, port, user, password, SourceCmdFilePath, DestCmdFilePath + DestCmdFileName)
         cmd = "C:/Users/automation-user1/runner.bat '"+ DestCmdFilePath +"' " + DestCmdFileName
         response = executeCmdOnSSH(server, port, user, password, cmd)
@@ -135,6 +137,7 @@ def executeCommandFile(server, user, password, SourceCmdFilePath, DestCmdFilePat
         response = executeCmdOnSSH(server, port, user, password, cmd)
         
         return True
+        #return False
     else:
         return False
         
@@ -154,3 +157,25 @@ def secureCopyFromServer(server, port, user, password, ServerFilePath, LocalFile
     except:
         print ("!!!!!SCP!!!!! Connection/Copying file failed with WaveServer")
         return False
+
+def CheckNCopyFileOnServer(server, port, user, password, ServerFilePath):
+    print ("In CheckNCopyFileOnServer Function")
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    try:
+        #ssh.connect('10.66.41.2', username='automation-user1', password='Fa$terThanL1ght')
+        ssh.connect(server, port, user, password)
+        sftp = ssh.open_sftp()
+        #sftp.chdir("C:/Users/automation-user1/")
+        try:
+            sftp.stat(ServerFilePath)
+            #print(sftp.stat('C:/Users/automation-user1/runner.bat'))
+            #print('file exists')
+            return True
+        except IOError:
+            print('copying file')
+            sftp.put('../tools/runner.bat', 'C:/Users/automation-user1/runner.bat')
+            return False
+        ssh.close()
+    except paramiko.SSHException:
+        print("Connection Error")

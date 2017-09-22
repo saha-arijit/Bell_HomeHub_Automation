@@ -10,10 +10,10 @@ Generate_TestCases_All
     ...    Frame Size    Load Values (Calculated by ROBOTAutomation during execution if Load Mode set to Atuo)    Expected Connections    Source    Destination    Test Duration
     ...    MCS    SS    Channel Bandwidth    Guard Interval    Ethernet Port    Wireless Port
     ...    Group Type    Throughput Multiplier    Save PCAPS
-    CreateTestCommand    \    TP    Auto    1    2.4    6
-    ...    1518    \    \    ETH    W_N    5
-    ...    7 6    1    40    short    generic_dut_1    generic_dut_0
-    ...    802.11ac    0.8    YES    #CreateTestCommand    TP    Auto
+    CreateTestCommand    \    TP    Auto    1    5    44
+    ...    1518    \    \    ETH    W_AC    5
+    ...    7    1    40    short    generic_dut_1    generic_dut_0
+    ...    802.11ac    0.9    YES    #CreateTestCommand    TP    Auto
     ...    # 1    2.4    1    # 1518    ETH    W_N
     ...    # 5    # 7    1    40    short    generic_dut_1
     ...    # generic_dut_0    # 802.11ac    YES    #CreateTestCommand    LAT    Auto
@@ -33,8 +33,16 @@ Generate_TestCases_All
     ...    # 11    # 512    102    ETH    W_N    5
     ...    # 7    1    40    short    generic_dut_1    generic_dut_0
     ...    # 802.11ac    YES    0
-    CreateTestCommand    \    MaxClient    Auto    1    2.4    6
-    ...    512    \    102    ETH    W_N    5
+    Create Test Command    \    LAT    Auto    1    5    44
+    ...    1518    \    \    ETH    W_AC    5
+    ...    7    1    40    short    generic_dut_1    generic_dut_0
+    ...    802.11ac    0    YES
+    Create Test Command    \    RR    Auto    1    5    44
+    ...    1518    \    \    ETH    W_AC    5
+    ...    7    1    40    short    generic_dut_1    generic_dut_0
+    ...    802.11ac    0    YES
+    CreateTestCommand    \    MaxClient    Auto    1    5    44
+    ...    512    \    102    ETH    W_AC    5
     ...    7    1    40    short    generic_dut_1    generic_dut_0
     ...    802.11ac    \    YES
     log    Test command file creation completed

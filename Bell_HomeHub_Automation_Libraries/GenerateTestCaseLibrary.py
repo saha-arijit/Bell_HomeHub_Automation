@@ -211,7 +211,7 @@ class GenerateTestCaseLibrary:
                 global_w_dut_in                 -   Wireless port entered by the user.
                 global_w_grouptype_in           -   Wireless group type (802.11ac or 802.11bg or 802.11n or 802.3 or 802.11a or 802.11n5G )
                 global_savepcaps_in             -   Enables wireshark trace capture in IxVeriwave via Wave Automation.("Yes" or "No")
-                global_throughput_multiplier_in -   Throughput Multiplier (0.9),Used only for TP Test cases.
+                global_throughput_multiplier_in -   Throughput Multiplier (0.9) as default,Used only for TP Test cases.
                 Directory                       -   Directory where the .bat file is present.
             Outputs  : 
                 Validates the Global Parameters.
@@ -241,8 +241,11 @@ class GenerateTestCaseLibrary:
         global_w_grouptype_in = var_w_grouptype_in 
         
         global_savepcaps_in = var_savepcaps_in 
+        
+        #Throughput value 0.9 by default unless entered explicitly by user
         if not var_throughput_multiplier_in:
             var_throughput_multiplier_in = "0.9"
+        
         
         global_throughput_multiplier_in = var_throughput_multiplier_in
         if var_test_type_in !="TP":
@@ -315,6 +318,7 @@ class GenerateTestCaseLibrary:
         
         print "*****CTC**** Command File Name: " + CommandFileName
 
+        
     def writeTestCommandToFile(self,FileName):
         """
             Function Name        : writeTestCommandToFile
@@ -336,7 +340,7 @@ class GenerateTestCaseLibrary:
         #print "*****WTC***** Direction is : " + str(global_direction_in)
         
         try:
-            if(global_direction_in == "0" or global_test_type_in == "RR"):
+            if(global_direction_in == "0" or global_test_type_in == "RR" or global_test_type_in == "MaxClient" ):
                 print "*****CTC***** Writing to uni Directional file."
                 
                 CreateCommandFile.write("::"+global_test_name_in)
@@ -398,7 +402,7 @@ class GenerateTestCaseLibrary:
                     CreateCommandFile.write("\n")
                 CreateCommandFile.write("::")
                 
-            if(global_direction_in == "1" and global_test_type_in != "RR"):
+            if(global_direction_in == "1" and global_test_type_in != "RR" and global_test_type_in != "MaxClient"):
                 print "*****CTC***** Writing to Bi Directional file."
                 CreateCommandFile.write("::"+global_test_name_in)
                 CreateCommandFile.write("\n")
@@ -536,6 +540,7 @@ class GenerateTestCaseLibrary:
             else:
                 saveTP.write(global_test_name_in+ " " + "DS "+ global_throughput_multiplier_in)
                 saveTP.write("\n")
+            saveTP.close()
             
         except ValueError as e:
             errMsg = "Value Error : %s " %(str(e) )

@@ -298,10 +298,13 @@ def ExecuteTestCommand():
                                 print(TestID, list_mcs, list_frameSize)
                                 #Calling Method to fetch the loads in RR or LAT
                                 loads_value = getpps(TestID, list_mcs, list_frameSize)
-                                print(loads_value[0])
+                                #print ("Print Loads Value")
+                                #print(loads_value)
+                                loadsValue = " ".join(str(x) for x in loads_value)
+                                #print(loadsValue)
                                 openFile = open(FileName,"r")
                                 fileContent = openFile.read()
-                                replacedText = fileContent.replace("loads \"\"", "loads \""+str(loads_value[0])+"\"", 1)
+                                replacedText = fileContent.replace("loads \"\"", "loads \""+loadsValue+"\"", 1)
                                 openFile.close()
                                 openFile = open(FileName,"w")
                                 openFile.write(replacedText)
@@ -374,6 +377,7 @@ def ExecuteTestCommand():
                             #return False
                         try :
                             os.remove(outputDS)
+                            pass
                         except :
                             print("Execution Log File Not Present ")
                         
@@ -405,7 +409,7 @@ def ExecuteTestCommand():
                             return False
                         try :
                             os.remove(outputUS)
-                            os.remove(TestResultLogFile)
+                            #os.remove(TestResultLogFile)
                         except :
                             print("Execution Log File Not Present ")
 
@@ -439,7 +443,8 @@ def ExecuteTestCommand():
                             raise AssertionError("....!!!!!TCE!!!!! Test Case Excution status Failed. For More details check logs on WaveServer " + TestResultDir )
                             return False
                     try :
-                        os.remove(TestResultLogFile)
+                        #os.remove(TestResultLogFile)
+                        
                         pass
                     except :
                         print("Execution Log File Not Present ")
