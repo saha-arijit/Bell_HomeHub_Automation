@@ -19,6 +19,7 @@ import datetime
 from dateutil.parser import parse
 import time
 import re
+import Logger
 #from datetime import *
 
 
@@ -27,6 +28,7 @@ ConfigFilePath = "userconfig.txt"
 g_testcase_starttime = 0
 g_testcase_stoptime = 0
 TestCmdDestPath = "C:/Program Files (x86)/IxVeriWave/WaveAutomate/automation_6.11-118_2017.06.30.08-admin_windows/automation/conf/HH3000/"
+loggerTest = Logger.CreateLogFile(__name__)
 
 TestRunnerFile = "../tools/runner.bat"
 TestResultLogFile = "../Bell_Homehub_Automation_Files/output.txt"
@@ -161,24 +163,29 @@ def ExecuteTestCommand():
         
         Directory = sorted(glob.glob(os.path.join("../Bell_Homehub_Automation_TestCommand/", '*/')), key=os.path.getmtime)[-1]
         
-        print ("*****ETC***** Last Modified Directory is: ")+ Directory
+        #print ("*****ETC***** Last Modified Directory is: ")+ Directory
+        Logger.messageLog ("Last Modified directory is : " + Directory)
         
         if(Directory.find("TC_Manual")>0):
             Directory = sorted(glob.glob(os.path.join("../Bell_Homehub_Automation_TestCommand/", '*/')), key=os.path.getmtime)[-2]
-            print ("*****ETC***** Last Modified Folder is TestCommand so picking second last created Directory : ")+ Directory
+            #print ("*****ETC***** Last Modified Folder is TestCommand so picking second last created Directory : ")+ Directory
+            Logger.messageLog ("Last Modified Directory for Automatic Execution mode is :" + Directory)
     else:
-        raise AssertionError("!!!!!ETC!!!!! Execution mode is not  set to Manual or Auto so aborting Execution")
+        Logger.errorLog ("Aborting execution as either of AUTO or MANUAL was not found for execution mode.")
+        raise AssertionError("Aborting execution as invalid execution mode found. Please enter either AUTO or MANUAL.")
         
     isCommandFilePresent = False        
     isCommandFileExecuted = False
     FileName = Directory + testCommandFileName
     if os.path.isfile(FileName):
         isCommandFilePresent = True
-        print ("*****ETC***** Test Command file present in path")       
+        #print ("*****ETC***** Test Command file present in path")  
+        Logger.messageLog ("Test Command file has been found in the directory.")
         
     else:
-        print ("!!!!!ETC!!!!! Test Command file is not present in path so aborting Execution")
-        raise AssertionError("!!!!!ETC!!!!! Test Command file is not present in path so aborting Execution")
+        Logger.errorLog ("Test command file with the mentioned test case name could not be found in folder.")
+        #print ("!!!!!ETC!!!!! Test Command file is not present in path so aborting Execution")
+        raise AssertionError("Test command file with the mentioned test case name could not be found in " + Directory)
     
     
     
@@ -237,32 +244,39 @@ def ExecuteTestCommand():
                 raise Exception(err)
         
         #print("*****ETC***** MCS Value : ")+ var_mcs
-        print ("****ETC***** Test Type : ") +var_testType
+        #print ("****ETC***** Test Type : ") +var_testType
+        Logger.messageLog ("Current test type for execution : " + var_testType)
         list_mcs = var_mcs.split(" ")
         #print list_mcs
         #GetUserConfig()
         #print "WaPort :" + var_waport
         if(var_testType =="TP" or var_testType == "MaxClient"):
+            Logger.messageLog ("Starting execution for : " + testCommandFileName + " on IxVeriWave server " + var_wahostname + ".  Please wait....")
             print(var_wahostname, var_wausername, var_wapassword, FileName, TestCmdDestPath, testCommandFileName, var_waport)
-            isCommandFileExecuted = executeCommandFile(var_wahostname, var_wausername, var_wapassword, FileName, TestCmdDestPath, testCommandFileName, var_waport)
+            #isCommandFileExecuted = executeCommandFile(var_wahostname, var_wausername, var_wapassword, FileName, TestCmdDestPath, testCommandFileName, var_waport)
             #print ("TestType is : " + var_testType)
-            #isCommandFileExecuted = True
+            isCommandFileExecuted = True
         elif(var_testType =="RR" or var_testType == "LAT"):
             ## IF Test name contains RR then replace it with TP
             if(test_name.find("RR")>0):
                 temp_testName = test_name.replace("RR", "TP")
+                Logger.messageLog ("Checking for the presence of " + test_name + " for the execution of " + temp_testName)
             ## IF Test name contains LAT then replace it with TP
             elif(test_name.find("LAT")>0):
                 temp_testName = test_name.replace("LAT", "TP")
+                Logger.messageLog ("Checking for the presence of " + test_name + " for the execution of " + temp_testName)
             
-            print ("Test Name to Found is %s" %temp_testName)
+            #print ("Test Name to Found is %s" %temp_testName)
             TPValuesFile = Directory+"TPValues.txt"
             ## Check the TPValues.txt file is present or not. For obtaining previous execution test ID
+            Logger.messageLog ("Checking for the presence of TPValues.txt file to fetch Test_ID value.")
             if os.path.isfile(TPValuesFile):
                 try:
-                    print ("TP Values File Present")
+                    #print ("TP Values File Present")
                     #readTP = open(Directory+"TPValues_"+st+".txt","r")
+                    Logger.messageLog ("Presence of TPValues.txt file has been validated successfully.")
                     readTP = open(Directory+"TPValues.txt","r")
+                    Logger.messageLog ("Reading data from TPValues.txt file.")
                     content = readTP.read()
                     lines = content.split("\n")
                     readTP.close(); 
@@ -270,6 +284,7 @@ def ExecuteTestCommand():
                     err = "Input/Output error: %s" % (str(e))
                     raise Exception(err)  
                 #print ("\""+test_name+"\"")
+                Logger.messageLog ("Checking for the successful execution of " + test_name +" test command previous to " + temp_testName)
                 isPrevExecDataFound = False
                 for eachline in lines:
                     #print (eachline)
@@ -365,7 +380,8 @@ def ExecuteTestCommand():
                             print ("Throughput Value is : %s"  %ThroughputValue)
                             #saveExecutionStatusToFile(test_name, "DS", g_testcase_starttime, ThroughputValue, FileName, elapsed_Time)
                             print test_name + "\t" + "DS" + "\t" + str(g_testcase_starttime)+ "\t" + str(ThroughputValue) + "\t " + FileName + "\t" + str(elapsed_Time)
-                            result_test_Id = parseBatFile(srvr_details, test_name, "DS", g_testcase_starttime, ThroughputValue, FileName, elapsed_Time)
+                            #result_test_Id = parseBatFile(srvr_details, test_name, "DS", g_testcase_starttime, ThroughputValue, FileName, elapsed_Time)
+                            result_test_Id = 1
                             if(var_testType == "TP"):
                                 TPValuesFile = Directory+"TPValues.txt"
                                 pattern = test_name + " DS " + ThroughputValue
@@ -396,7 +412,8 @@ def ExecuteTestCommand():
                             
                             #saveExecutionStatusToFile(test_name, "US", g_testcase_starttime, ThroughputValue, FileName, elapsed_Time)
                             print "test_name" + "\t" + "US" + "\t" + str(g_testcase_starttime)+ "\t" + str(ThroughputValue) + "\t " + FileName + "\t" + str(elapsed_Time)
-                            result_test_Id = parseBatFile(srvr_details, test_name, "US", g_testcase_starttime, ThroughputValue, FileName, elapsed_Time)
+                            #result_test_Id = parseBatFile(srvr_details, test_name, "US", g_testcase_starttime, ThroughputValue, FileName, elapsed_Time)
+                            result_test_Id = 1
                             if(var_testType == "TP"):
                                 TPValuesFile = Directory+"TPValues.txt"
                                 pattern = test_name + " US " + ThroughputValue

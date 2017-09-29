@@ -32,7 +32,8 @@ class GenerateTestCaseLibrary:
         
     #Initialization of Logger File
     
-
+    loggerTest = Logger.CreateLogFile(__name__)
+    
     def SetUserConfig(self):
         """
             Function Name        : SetUserConfig
@@ -248,7 +249,6 @@ class GenerateTestCaseLibrary:
         
         global_savepcaps_in = var_savepcaps_in 
         
-        loggerTest = Logger.CreateLogFile(__name__)
 
         #Throughput value 0.9 by default unless entered explicitly by user
         if not var_throughput_multiplier_in:
