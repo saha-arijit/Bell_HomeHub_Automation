@@ -33,18 +33,18 @@ Generate_TestCases_All
     ...    # 11    # 512    102    ETH    W_N    5
     ...    # 7    1    40    short    generic_dut_1    generic_dut_0
     ...    # 802.11ac    YES    0
-    Create Test Command    \    LAT    Auto    1    5    44
-    ...    1518    \    \    ETH    W_AC    5
-    ...    7    1    40    short    generic_dut_1    generic_dut_0
-    ...    802.11ac    0    YES
-    Create Test Command    \    RR    Auto    1    5    44
-    ...    1518    \    \    ETH    W_AC    5
-    ...    7    1    40    short    generic_dut_1    generic_dut_0
-    ...    802.11ac    0    YES
-    CreateTestCommand    \    MaxClient    Auto    1    5    44
-    ...    512    \    102    ETH    W_AC    5
-    ...    7    1    40    short    generic_dut_1    generic_dut_0
-    ...    802.11ac    \    YES
+    Comment    Create Test Command    \    LAT    Auto    1    5
+    ...    44    1518    \    \    ETH    W_AC
+    ...    5    7    1    40    short    generic_dut_1
+    ...    generic_dut_0    802.11ac    0    YES
+    Comment    Create Test Command    \    RR    Auto    1    5
+    ...    44    1518    \    \    ETH    W_AC
+    ...    5    7    1    40    short    generic_dut_1
+    ...    generic_dut_0    802.11ac    0    YES
+    Comment    CreateTestCommand    \    MaxClient    Auto    1    5
+    ...    44    512    \    102    ETH    W_AC
+    ...    5    7    1    40    short    generic_dut_1
+    ...    generic_dut_0    802.11ac    \    YES
     log    Test command file creation completed
 
 *** Keywords ***

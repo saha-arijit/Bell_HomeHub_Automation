@@ -12,7 +12,7 @@
 import os
 import time
 import datetime
-
+import Logger
 import TestParameterValidationLibrary
 from robot.api.deco import keyword
 
@@ -30,7 +30,8 @@ class GenerateTestCaseLibrary:
     def comment(*message):
         pass
         
-
+    #Initialization of Logger File
+    
 
     def SetUserConfig(self):
         """
@@ -161,26 +162,31 @@ class GenerateTestCaseLibrary:
                 os.makedirs(Directory)  
         '''
         if global_execMode_in == "Auto":
-            print "*****ExecM***** execution mode set to Auto"
+            #print "*****ExecM***** execution mode set to Auto"
+            Logger.messageLog("Execution mode has been set to AUTOMATIC by user.")
             global_execMode_in = "Auto"
                     
             if not Directory:
-                print "*****ExecM***** As Directory is not created Previously Creating new"
+                #print "*****ExecM***** As Directory is not created Previously Creating new"
+                Logger.messageLog("Initiating directory creation to store test command files.")
                 ts = time.time()
                 st = datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d-%H%M%S')
                 Directory = "../Bell_Homehub_Automation_TestCommand/TC_"+st+"/"
-                print "Created New Directory : "+Directory
+                #print "Created New Directory : "+Directory
                 try:    
                     if not os.path.exists(Directory):
                         os.makedirs(Directory)
+                        Logger.messageLog(Directory + "  directory created to store test command files.")
                 except OSError, e:
                     if os.path.exists(Directory):
-                        print "Directory is beign created successfully" ,Directory
-
+                        #print "Directory is beign created successfully" ,Directory
+                        Logger.messageLog(Directory + "  directory is already present.")
                     else:  
-                        print "Error is creating the Directory",Directory
+                        raise Exception ("Error faced in creating directory to store Test Case command files.")
+
         else:
-            print "global_execMode_in is not set to AUTO"
+            #print "global_execMode_in is not set to AUTO"
+            Logger.messageLog("Execution mode has been set to MANUAL by user.")
 
 
 
@@ -242,9 +248,12 @@ class GenerateTestCaseLibrary:
         
         global_savepcaps_in = var_savepcaps_in 
         
+        loggerTest = Logger.CreateLogFile(__name__)
+
         #Throughput value 0.9 by default unless entered explicitly by user
         if not var_throughput_multiplier_in:
             var_throughput_multiplier_in = "0.9"
+            Logger.messageLog("Value for Throughput has been set to : %f" %var_throughput_multiplier_in )
         
         
         global_throughput_multiplier_in = var_throughput_multiplier_in
@@ -264,60 +273,82 @@ class GenerateTestCaseLibrary:
         
         if not var_test_name_in:                #If Test Name is not defiened by user create atomatically
             
-            #***********************************  ADDED MCS IN TEST NAME ********************************************
             list_mcs = global_mcs_in.split(" ")
             if (len(list_mcs) > 1):
-                print ("THERE ARE MORE THAN ONE MCS   %d"  %len(list_mcs))
+                #print ("THERE ARE MORE THAN ONE MCS   %d"  %len(list_mcs))
+                Logger.messageLog ("Multiple MCS values has been provided for command creation.")
                 var_test_name_in = var_dest_splited+"-"+var_test_type_in+"-"+str(var_band_selection_in)+"G-"+str(var_bw_in)+"MHz-"+str(var_ss_in)+"ss-"+str(var_channel_in)+"c"+"-mcs"
-                print "****CTC**** Test name is null Automatically Created Test Name is: " + var_test_name_in
+                #print "****CTC**** Test name is null Automatically Created Test Name is: " + var_test_name_in
                 global_test_name_in = var_test_name_in
             else:
-                print "NO MORE THAN ONE MCS  %d" %len(list_mcs)
+                #print "NO MORE THAN ONE MCS  %d" %len(list_mcs)
+                Logger.messageLog ("Single MCS value have been provided for command creation.")
                 var_test_name_in = var_dest_splited+"-"+var_test_type_in+"-"+str(var_band_selection_in)+"G-"+str(var_bw_in)+"MHz-"+str(var_ss_in)+"ss-"+str(var_channel_in)+"c"+"-"+list_mcs[0]+"mcs"
-                print "****CTC**** Test name is null Automatically Created Test Name is: " + var_test_name_in
+                #print "****CTC**** Test name is null Automatically Created Test Name is: " + var_test_name_in
+                Logger.messageLog ("Custom Test Case Name has not been provided by user.")
+                Logger.messageLog ("Automatically generated Test Case Name is : " + var_test_name_in)
                 global_test_name_in = var_test_name_in
             
-            #*********************************************************************************************************
+        else:
+            Logger.messageLog ("Test Case Name entered by user : " + var_test_name_in)  
+
+        ## Check for the Test Parameter Validations..............
+        Logger.messageLog("Initiating Validation of Test Parameters.")      
         tpv = TestParameterValidationLibrary.testParameterValidation()
-        isParametersValid = tpv.parameterValidation(global_test_name_in, global_test_type_in, global_load_mode_in, global_direction_in, global_band_selection_in, global_channel_in, global_frameSize_in, global_loads_in, global_expectConn_in, global_source_in, global_destination_in, global_duration_in, global_mcs_in, global_ss_in, global_bw_in, global_gi_in, global_eth_dut_in, global_w_dut_in, global_w_grouptype_in, global_savepcaps_in, global_throughput_multiplier_in, Directory)
-        print "*****CTC***** Parameter Validations are done all parameters valid = %r " %isParametersValid
+        isParametersValid = tpv.parameterValidation(global_test_name_in, global_test_type_in, global_load_mode_in, global_direction_in, 
+                            global_band_selection_in, global_channel_in, global_frameSize_in, global_loads_in, global_expectConn_in, global_source_in, 
+                            global_destination_in, global_duration_in, global_mcs_in, global_ss_in, global_bw_in, global_gi_in, global_eth_dut_in, 
+                            global_w_dut_in, global_w_grouptype_in, global_savepcaps_in, global_throughput_multiplier_in, Directory)
+        #print "*****CTC***** Parameter Validations are done all parameters valid = %r " %isParametersValid
+        Logger.messageLog("Validation of Test Parameters completed successfully.")
         
-        #If static parameter validation failed then creating TestCommand file will gets aborted.
-        
+        ## Incase of Test Parameter Validation not successful, Test Command file creation will be aborted.
         if(isParametersValid == False):
-            raise AssertionError("!!!!!CTC!!!!! Test Parameter Validation Failed")
-            
-        isDepedencyCheckSuccess = tpv.parameterDependencyValidation(global_test_type_in, global_source_in, global_destination_in, global_band_selection_in, global_channel_in, global_bw_in, global_mcs_in)
-        
-        print "*****CTC***** Parameter Dependency Validations: All Dependency check succeed = %r " %isDepedencyCheckSuccess
-        
+            raise AssertionError("!!!!!CTC!!!!! Test Parameter Validation Failed.")
+
+        ## Check for the Test Parameter Dependency Validation
+        Logger.messageLog("Initiating Dependency Validation of Test Parameters.")
+        isDepedencyCheckSuccess = tpv.parameterDependencyValidation(global_test_type_in, global_source_in, global_destination_in, global_band_selection_in, 
+                                    global_channel_in, global_bw_in, global_mcs_in)
+        #print "*****CTC***** Parameter Dependency Validations: All Dependency check succeed = %r " %isDepedencyCheckSuccess
+        Logger.messageLog("Validation of Test Dependency Parameters completed successfully.")
+
         #If parameter dependency validation failed then creating TestCommand file will gets aborted.
         if(isDepedencyCheckSuccess == False):
             raise AssertionError("!!!!!CTC!!!!! Test Parameter Dependancy Validation Failed")
         
         CommandFileName = Directory+var_test_name_in+".bat"
-        print "*****CTC***** Command File Name is : " +CommandFileName
+        #print "*****CTC***** Command File Name is : " +CommandFileName
+        Logger.messageLog("Creating Test Command file : " + CommandFileName)
         
         if(isParametersValid == True):
         
             if(isDepedencyCheckSuccess == True):
                 if(WriteFile == True):
+                    Logger.messageLog("Initiating writing of data for .bat file creation.")
                     self.writeTestCommandToFile(CommandFileName)
+                    Logger.messageLog("Created Test Command .bat file for : " + CommandFileName)
                     if(var_test_type_in == "TP"):
+                        Logger.messageLog("Saving test case details for TP Test case in text TP_Values.txt file.")
                         self.SaveTPValue()
+                        Logger.messageLog("Completed saving test case details in TP_Values.txt file.")
                     
                 else:
-                    print "*****CTC**** Write to File flag is False"
+                    #print "*****CTC**** Write to File flag is False"
+                    Logger.errorLog("Test Command Write to File Flag found FALSE.")
                     raise AssertionError("Write to File flag is False")
+                    
             else:
-                print "*****CTC**** Test Dependancy Validation Failed"
+                #print "*****CTC**** Test Dependancy Validation Failed"
+                Logger.errorLog("Test Parameter Dependancy Validation has FAILED.")
                 raise AssertionError("Test Dependancy Validation Failed")
         else:
-            print "*****CTC**** Test Parameter Validation Failed"
+            #print "*****CTC**** Test Parameter Validation Failed"
+            Logger.errorLog("Test Parameter Validation has FAILED.")
             raise AssertionError("Test Parameter Validation Failed")
         
-        print "*****CTC**** Command File Name: " + CommandFileName
-
+        #print "*****CTC**** Command File Name: " + CommandFileName
+        Logger.messageLog("Command File Created : " + CommandFileName)
         
     def writeTestCommandToFile(self,FileName):
         """
@@ -333,15 +364,18 @@ class GenerateTestCaseLibrary:
         global global_test_name_in, global_test_type_in, global_load_mode_in, global_direction_in, global_band_selection_in, global_channel_in, global_frameSize_in, global_loads_in, global_expectConn_in, global_source_in, global_destination_in, global_duration_in, global_mcs_in, global_ss_in, global_bw_in, global_gi_in, global_eth_dut_in, global_w_dut_in, global_w_grouptype_in, global_savepcaps_in, global_throughput_multiplier_in
         try:
             CreateCommandFile = open(FileName, "w+")
+            Logger.messageLog ("Opening " + FileName + "  for writing data for test command creation.")
         except IOError as e:
             err = "Input/Output error: %s" % ( str(e) )
+            Logger.errorLog ("Cannot open " + FileName + " to write data for Test Command creation.")
             raise MyException(err)
         
         #print "*****WTC***** Direction is : " + str(global_direction_in)
         
         try:
             if(global_direction_in == "0" or global_test_type_in == "RR" or global_test_type_in == "MaxClient" ):
-                print "*****CTC***** Writing to uni Directional file."
+                #print "*****CTC***** Writing to uni Directional file."
+                Logger.messageLog ("Creating UNI-DIRECTIONAL Test Command File.")
                 
                 CreateCommandFile.write("::"+global_test_name_in)
                 CreateCommandFile.write("\n")
@@ -403,7 +437,8 @@ class GenerateTestCaseLibrary:
                 CreateCommandFile.write("::")
                 
             if(global_direction_in == "1" and global_test_type_in != "RR" and global_test_type_in != "MaxClient"):
-                print "*****CTC***** Writing to Bi Directional file."
+                #print "*****CTC***** Writing to Bi Directional file."
+                Logger.messageLog ("Creating BI-DIRECTIONAL Test Command File.")
                 CreateCommandFile.write("::"+global_test_name_in)
                 CreateCommandFile.write("\n")
                 CreateCommandFile.write("tclsh ..\\..\\bin\\vw_auto.tcl -f "+global_test_type_in+".tcl ^")
@@ -519,6 +554,7 @@ class GenerateTestCaseLibrary:
                 CreateCommandFile.write("::")
         except ValueError as e:
             err = "Value Error is %s" % ( str(e) )
+            Logger.errorLog ("Raising Value Error while writing of Test Command File.")
             raise MyException(err)
 
     def SaveTPValue(self):
@@ -526,9 +562,11 @@ class GenerateTestCaseLibrary:
         #st = datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d')
         try:
             #saveTP = open(Directory+"TPValues_"+st+".txt","a")
+            Logger.messageLog ("Opening TPValues.txt to write details for TP test case.")
             saveTP = open(Directory+"TPValues.txt","a")
         except IOError as e:
             err = "Input/Output error: %s" % ( str(e) )
+            Logger.errorLog ("Raising I/O Error while writing details to TPValues.txt. Please check whether it is present or not.")
             raise MyException(err)
         
         try:
@@ -541,7 +579,8 @@ class GenerateTestCaseLibrary:
                 saveTP.write(global_test_name_in+ " " + "DS "+ global_throughput_multiplier_in)
                 saveTP.write("\n")
             saveTP.close()
-            
+            Logger.messageLog ("Closing TPValues.txt after writing details for TP test case.")
         except ValueError as e:
             errMsg = "Value Error : %s " %(str(e) )
+            Logger.errorLog ("Raising Value Error while writing of details to TPValues.txt File.")
             raise MyException(err)
