@@ -156,7 +156,8 @@ def ExecuteTestCommand():
     
     if(global_execMode_in == "Manual"):
         Directory = "../Bell_Homehub_Automation_TestCommand/TC_Manual"
-        print( "******ETC***** Execution mode set to Manual and Test Command Directory is : ") + Directory
+        #print( "******ETC***** Execution mode set to Manual and Test Command Directory is : ") + Directory
+        Logger.messageLog ("Execution mode has been set to Manual and the Test Directory is :" + Directory)
     
     elif(global_execMode_in == "Auto"):
         #Get latest modified directory
@@ -295,113 +296,163 @@ def ExecuteTestCommand():
                         ## If the Test name and DB Test_id is found then execute following block
                         if(len(list)==4):
                             #print ("Content of List " + str(list[0]))
-                            print ("Test Name = " + list[0])
+                            #print ("Test Name = " + list[0])
                             if(list[0] == temp_testName):
-                                print ("TP Test Case found in Pase Execution")
+                                Logger.messageLog (list[0] + "  has been successfully executed before  " + temp_testName)
+                                #print ("TP Test Case found in Pase Execution")
                                 #*********************************
                                 #test_name_file = list[0]  # Fetching the corresponding TP test name from the "TPValues.txt" file 
                                 #*********************************
                                 #print test_name
                                 #print test_nam
                                 Direction = list[1]
+                                Logger.messageLog ("Direction found for corresponding TP test case execution :" + Direction)
                                 #print (Direction)
                                 TPValue = list[2]
+                                Logger.messageLog ("Throughout Value found for corresponding TP test case execution :" + TPValue)
                                 #print (TPValue)
                                 TestID = list[3]
-                                print (TestID)
-                                print("Before calling getpps")
-                                print(TestID, list_mcs, list_frameSize)
+                                Logger.messageLog ("Fetched Test Id from database for corresponding TP test case execution :" + TestID)
+                                #print (TestID)
+                                #print("Before calling getpps")
+                                #print(TestID, list_mcs, list_frameSize)
                                 #Calling Method to fetch the loads in RR or LAT
+                                Logger.messageLog ("Calling method to fetch LOADS value for :" + test_name)
                                 loads_value = getpps(TestID, list_mcs, list_frameSize)
                                 #print ("Print Loads Value")
                                 #print(loads_value)
+                                Logger.messageLog ("Completed fetching LOADS value for :" + test_name)
                                 loadsValue = " ".join(str(x) for x in loads_value)
                                 #print(loadsValue)
+                                Logger.messageLog ("Opening " + test_name + " Test Command file to write the Loads value.")
                                 openFile = open(FileName,"r")
                                 fileContent = openFile.read()
+                                Logger.messageLog ("Reading existing data from Loads in the Test Command file.")
                                 replacedText = fileContent.replace("loads \"\"", "loads \""+loadsValue+"\"", 1)
                                 openFile.close()
                                 openFile = open(FileName,"w")
                                 openFile.write(replacedText)
                                 openFile.close()
+                                Logger.messageLog ("Completed writing the value for Loads in the Test Command file for :" + test_name)
                                 isPrevExecDataFound = True
+                                Logger.messageLog ("Setting flag value for 'isPrevExecDataFound' to 'True'.")
                        
                     except ValueError as e:
                         err = "Value Error is %s" % ( str(e) )
                         raise Exception(err)
                 #print ("Throughout Value is %s and TestID is %s" %TPValue %TestID)
+                Logger.messageLog ("Checking for flag value 'isPrevExecDataFound'.")
                 if(isPrevExecDataFound == True):
-                    print("Previous Execution of TP Test case found")
+                    #print("Previous Execution of TP Test case found")
+                    Logger.messageLog ("Flag Value for 'isPrevExecDataFound' has been found to be 'True'. " + test_name +" is ready for execution.")
+                    Logger.messageLog ("Starting execution of "+test_name+ ". Please wait while the execution is in progress on IxVeriWave server on " + var_wahostname)
                     #print(var_wahostname, var_wausername, var_wapassword, FileName, TestCmdDestPath, testCommandFileName, var_waport)
                     isCommandFileExecuted = executeCommandFile(var_wahostname, var_wausername, var_wapassword, FileName, TestCmdDestPath, testCommandFileName, var_waport)
                     #isCommandFileExecuted = True
+                    Logger.messageLog ("Setting flag value for 'isCommandFileExecuted' to 'True'.")
+                    Logger.messageLog ("Completed execution of " + test_name + " successfully.")
                 else :
                     #print("!!!!!TCE!!!!! Previous execution of TP Test case not found in TP Values file")
+                    Logger.errorLog ("Flag Value for 'isPrevExecDataFound' has been found to be 'False'. Aborting execution for " + test_name +".")
                     isCommandFileExecuted = False
-                    raise AssertionError("!!!!!TCE!!!!! Previous execution of TP Test case not found in TP Values file")
+                    Logger.errorLog ("Setting flag value for 'isCommandFileExecuted' to 'False'.")
+                    Logger.errorLog ("Previous execution of corresponding TP test case not found.")    
+                    raise AssertionError("Previous execution of TP Test case not found in TP Values file.")
 
             else :
                 isCommandFileExecuted = False
+                Logger.errorLog ("Setting flag value for 'isCommandFileExecuted' to 'False'.")
                 #print("!!!!!TCE!!!!! TPValues.txt File is not present on command File path")
-                raise AssertionError("!!!!!TCE!!!!! TPValues.txt File is not present on command File path")
+                Logger.errorLog ("'TPValues.txt' has not been found in the Test Command file path.")
+                raise AssertionError(" TPValues.txt File is not present on command File path.")
         
         if(isCommandFileExecuted == True):
-            print ("Command File is Executed")
+            Logger.messageLog ("Flag Value for 'isCommandFileExecuted' has been found to be 'True'. ")
+            #print ("Command File is Executed")
+            Logger.messageLog ("Searching for the Test Result Log file fetched from Wave Server.")
             if(os.path.isfile(TestResultLogFile)):
+                Logger.messageLog ("Test Result Log file has been found successfully.")
                 #print ("TestResult Log File is present in path")
                 outputDS = "../Bell_Homehub_Automation_Files/output_DS.txt"
+                Logger.messageLog ("Created Result Output text file for DownStream direction.")
                 outputUS = "../Bell_Homehub_Automation_Files/output_US.txt"
+                Logger.messageLog ("Created Result Output text file for UpStream direction.")
                 try:
-                    print ("direction is : %d" %var_direction)
+                    Logger.messageLog ("Value entered by user for direction configuration in Test Command : %d" %var_direction)
+                    #print ("direction is : %d" %var_direction)
                     
                     # *****************************  FOR BI - DIRECTIONAL **********************************
                     if(var_direction == 1):
-                        print "Command Executeds, OutputFile PResent and Direction = 1"
+                        Logger.messageLog ("Proceeding with Result file processing for Bi-Directional Test Case.")
+                        #print "Command Executeds, OutputFile PResent and Direction = 1"
                         with open(TestResultLogFile) as f:
+                            Logger.messageLog ("Opening Test Result Log file.")
                             DS, output, US = f.read().partition("/output.log\n")
                             #print (output)
+                            Logger.messageLog ("Reading contents of Test Result Log file.")
                             with open(outputDS, "w") as f:
                                 f.write(DS)
+                                Logger.messageLog ("Writing the contents of DS to DownStream result test file.")
                                 with open(outputUS, "w") as f:
+                                    Logger.messageLog ("Writing the contents of US to UpStream result test file.")
                                     f.write(US)
                         ## Post Procesing For DS
-                        print ("Check Execution status for DS")
-                        TestRestultStatus = verifyTestExectionStatus(outputDS)
-                        print ("Test Exeuction status is %r"  %TestRestultStatus)
-                        if (TestRestultStatus == True):
+                        Logger.messageLog ("Trying to check the execution status for DS execution.")
+                        #print ("Check Execution status for DS")
+                        TestResultStatus = verifyTestExectionStatus(outputDS)
+                        Logger.messageLog ("Successfully checked the execution status for DS execution. \
+                                                Setting value flag for 'TestResultStatus' to : " + str(TestResultStatus))
+                        #print ("Test Exeuction status is %r"  %TestResultStatus)
+                        if (TestResultStatus == True):
+                            Logger.messageLog ("Test Result execution status has been found to be : " + str(TestResultStatus))
+                            Logger.messageLog ("Trying to check the duration for the execution of the test command file.")
                             elapsed_Time = getTestExecutionTime(outputDS)
-                            print("before calling GetThroughputValue function")
+                            Logger.messageLog ("Duration for the execution of the test command file is : " + str(elapsed_Time))
+                            #print("before calling GetThroughputValue function")
                                  #****************************************
+                            Logger.messageLog ("Trying to check Test Type and if required fetch Throughput value.")
                             if (var_testType == "TP"):
+                                Logger.messageLog ("Test Type has been found to be : " + var_testType)
+                                Logger.messageLog ("Trying to fetch the Throughput value from TPValues.txt file.")
                                 ThroughputValue = GetThroughputValue(test_name)
+                                Logger.messageLog ("Value of Throughput found from TPValues.txt file :" + ThroughputValue)
                             else:
+                                Logger.messageLog ("Test Type has been found to be : " + var_testType +". Not required to fetch Throughput value.")
                                 ThroughputValue = 0
+                                Logger.messageLog ("Setting value of Throughput to 0.")
                             #****************************************
-                            print ("Throughput Value is : %s"  %ThroughputValue)
+                            #print ("Throughput Value is : %s"  %ThroughputValue)
                             #saveExecutionStatusToFile(test_name, "DS", g_testcase_starttime, ThroughputValue, FileName, elapsed_Time)
-                            print test_name + "\t" + "DS" + "\t" + str(g_testcase_starttime)+ "\t" + str(ThroughputValue) + "\t " + FileName + "\t" + str(elapsed_Time)
-                            #result_test_Id = parseBatFile(srvr_details, test_name, "DS", g_testcase_starttime, ThroughputValue, FileName, elapsed_Time)
-                            result_test_Id = 1
+                            #print test_name + "\t" + "DS" + "\t" + str(g_testcase_starttime)+ "\t" + str(ThroughputValue) + "\t " + FileName + "\t" + str(elapsed_Time)
+                            Logger.messageLog ("Trying to call method to parse .bat file and store the details to database.")
+                            result_test_Id = parseBatFile(srvr_details, test_name, "DS", g_testcase_starttime, ThroughputValue, FileName, elapsed_Time)
+                            Logger.messageLog ("Successfully executed parsing of .bat file")
+                            Logger.messageLog ("Test ID fetched from database for the parsed test command is : " + str(result_test_Id))
                             if(var_testType == "TP"):
+                                Logger.messageLog ("Test type has been found to be : " + var)                                
                                 TPValuesFile = Directory+"TPValues.txt"
                                 pattern = test_name + " DS " + ThroughputValue
                                 subst = pattern +" " + str(result_test_Id) 
+                                Logger.messageLog ("Calling method to store the TestID value fetched from database in TPValues.txt file.")
                                 replaceStringInFile(TPValuesFile, pattern, subst)
+                                Logger.messageLog ("Successfully stored the TestID of in TPValues.txt file for execution of RR/LAT test commands.")
                         else:
                             TestResultDir = var_Result_Dir + "\\" + getExecutionStartTime(outputDS)                            
-                            raise AssertionError("!!!!!TCE!!!!! Test Case Excution status Failed. For More details check logs on WaveServer " + TestResultDir )
+                            Logger.errorLog ("Test Case execution failed. Please check the logs on Wave server.")
+                            raise AssertionError("Test Case Excution status Failed. For More details check logs on WaveServer " + TestResultDir )
                             #return False
                         try :
                             os.remove(outputDS)
+                            Logger.messageLog ("Removed UpStream Test Result log file from local server.")
                             pass
                         except :
                             print("Execution Log File Not Present ")
                         
                         ## Post Procesing for US 
                         print ("Check Execution status for US")
-                        TestRestultStatus = verifyTestExectionStatus(outputUS)
-                        print ("Test Exeuction status is %r"  %TestRestultStatus)
-                        if (TestRestultStatus ==True):
+                        TestResultStatus = verifyTestExectionStatus(outputUS)
+                        print ("Test Exeuction status is %r"  %TestResultStatus)
+                        if (TestResultStatus ==True):
                             elapsed_Time = getTestExecutionTime(outputUS)
                                  #****************************************
                             if (var_testType == "TP"):
@@ -433,9 +484,9 @@ def ExecuteTestCommand():
                     # *********************     FOR UNI - DIRECTIONAL *************************8
                     else :
                         print "Command Executeds, OutputFile Present and Direction = 0."
-                        TestRestultStatus = verifyTestExectionStatus(TestResultLogFile)
-                        print ("Test Exeuction status is %r"  %TestRestultStatus)
-                        if (TestRestultStatus ==True):
+                        TestResultStatus = verifyTestExectionStatus(TestResultLogFile)
+                        print ("Test Exeuction status is %r"  %TestResultStatus)
+                        if (TestResultStatus ==True):
                             elapsed_Time = getTestExecutionTime(TestResultLogFile)
                             
                             #****************************************
