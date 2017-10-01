@@ -277,12 +277,12 @@ def parseBatFile(srvr_details, testname, direction, date, throughput_multiplier,
 	return test_id
 
 
-if __name__=='__main__':
-		srvr_details = ["10.66.41.2","22","automation-user1","Fa$terThanL1ght","localhost","root","bell"]
-		testname = "N-RR-2.4G-40MHz-1ss-11c"
-		direction = "DS"
-		date = "20170907-130749"
-		throughput_multiplier = 0
-		filename = "C:/Bell_HomeHub_Automation/Bell_Homehub_Automation_TestCommand/TC_20170907-130749/N-RR-2.4G-40MHz-1ss-11c.bat"
-		testDuration = 1
-		parseBatFile(srvr_details, testname, direction, date, throughput_multiplier, filename, testDuration)
+# if __name__=='__main__':
+# 		srvr_details = ["10.66.41.2","22","automation-user1","Fa$terThanL1ght","localhost","root","bell"]
+# 		testname = "N-RR-2.4G-40MHz-1ss-11c"
+# 		direction = "DS"
+# 		date = "20170907-130749"
+# 		throughput_multiplier = 0
+# 		filename = "C:/Bell_HomeHub_Automation/Bell_Homehub_Automation_TestCommand/TC_20170907-130749/N-RR-2.4G-40MHz-1ss-11c.bat"
+# 		testDuration = 1
+# 		parseBatFile(srvr_details, testname, direction, date, throughput_multiplier, filename, testDuration)

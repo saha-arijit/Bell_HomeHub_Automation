@@ -446,83 +446,126 @@ def ExecuteTestCommand():
                             Logger.messageLog ("Removed UpStream Test Result log file from local server.")
                             pass
                         except :
-                            print("Execution Log File Not Present ")
+                            #print("Execution Log File Not Present ")
+                            Logger.errorLog ("Execution log file could not be found.")
                         
-                        ## Post Procesing for US 
-                        print ("Check Execution status for US")
+                        ## Post Procesing for US
+                        #print ("Check Execution status for US")
+                        Logger.messageLog ("Trying to check the execution status for US execution.")
                         TestResultStatus = verifyTestExectionStatus(outputUS)
-                        print ("Test Exeuction status is %r"  %TestResultStatus)
+                        #print ("Test Exeuction status is %r"  %TestResultStatus)
+                        Logger.messageLog ("Successfully checked the execution status for US execution. \
+                                                Setting value flag for 'TestResultStatus' to : " + str(TestResultStatus))
                         if (TestResultStatus ==True):
+                            Logger.messageLog ("Test Result execution status has been found to be : " + str(TestResultStatus))
+                            Logger.messageLog ("Trying to check the duration for the execution of the test command file.")
                             elapsed_Time = getTestExecutionTime(outputUS)
+                            Logger.messageLog ("Duration for the execution of the test command file is : " + str(elapsed_Time))
                                  #****************************************
+                            Logger.messageLog ("Trying to check Test Type and if required fetch Throughput value.")
                             if (var_testType == "TP"):
+                                Logger.messageLog ("Test Type has been found to be : " + var_testType)
+                                Logger.messageLog ("Trying to fetch the Throughput value from TPValues.txt file.")
                                 ThroughputValue = GetThroughputValue(test_name)
+                                Logger.messageLog ("Value of Throughput found from TPValues.txt file :" + ThroughputValue)
                             else:
+                                Logger.messageLog ("Test Type has been found to be : " + var_testType +". Not required to fetch Throughput value.")
                                 ThroughputValue = 0
+                                Logger.messageLog ("Setting value of Throughput to 0.")
+            
                             #****************************************
                             
                             #saveExecutionStatusToFile(test_name, "US", g_testcase_starttime, ThroughputValue, FileName, elapsed_Time)
-                            print "test_name" + "\t" + "US" + "\t" + str(g_testcase_starttime)+ "\t" + str(ThroughputValue) + "\t " + FileName + "\t" + str(elapsed_Time)
-                            #result_test_Id = parseBatFile(srvr_details, test_name, "US", g_testcase_starttime, ThroughputValue, FileName, elapsed_Time)
-                            result_test_Id = 1
+                            #print "test_name" + "\t" + "US" + "\t" + str(g_testcase_starttime)+ "\t" + str(ThroughputValue) + "\t " + FileName + "\t" + str(elapsed_Time)
+                            Logger.messageLog ("Trying to call method to parse .bat file and store the details to database.")
+                            result_test_Id = parseBatFile(srvr_details, test_name, "US", g_testcase_starttime, ThroughputValue, FileName, elapsed_Time)
+                            Logger.messageLog ("Successfully executed parsing of .bat file")
+                            Logger.messageLog ("Test ID fetched from database for the parsed test command is : " + str(result_test_Id))
                             if(var_testType == "TP"):
+                                Logger.messageLog ("Test type has been found to be : " + var_testType)
                                 TPValuesFile = Directory+"TPValues.txt"
                                 pattern = test_name + " US " + ThroughputValue
                                 subst = pattern +" " + str(result_test_Id) 
+                                Logger.messageLog ("Calling method to store the TestID value fetched from database in TPValues.txt file.")
                                 replaceStringInFile(TPValuesFile, pattern, subst)
+                                Logger.messageLog ("Successfully stored the TestID of in TPValues.txt file for execution of RR/LAT test commands.")
                             
                         else:
-                            TestResultDir = var_Result_Dir + "\\" + getExecutionStartTime(outputUS)                            
-                            raise AssertionError("!!!!!TCE!!!!! Test Case Excution status Failed. For More details check logs on WaveServer " + TestResultDir )
+                            TestResultDir = var_Result_Dir + "\\" + getExecutionStartTime(outputUS)  
+                            Logger.errorLog ("Test Case execution failed. Please check the logs on Wave server.")                          
+                            raise AssertionError("Test Case Excution status Failed. For More details check logs on WaveServer " + TestResultDir )
                             return False
                         try :
                             os.remove(outputUS)
+                            Logger.messageLog ("Removed UpStream Test Result log file from local server.")
                             #os.remove(TestResultLogFile)
                         except :
-                            print("Execution Log File Not Present ")
+                            #print("Execution Log File Not Present ")
+                            Logger.errorLog ("Execution log file could not be found.")
 
                     # *********************     FOR UNI - DIRECTIONAL *************************8
                     else :
-                        print "Command Executeds, OutputFile Present and Direction = 0."
+                        Logger.messageLog ("Proceeding with Result file processing for Uni-Directional Test Case.")
+                        #print "Command Executeds, OutputFile Present and Direction = 0."
+                        Logger.messageLog ("Trying to check the execution status for Uni-Directional execution.")
                         TestResultStatus = verifyTestExectionStatus(TestResultLogFile)
-                        print ("Test Exeuction status is %r"  %TestResultStatus)
+                        Logger.messageLog ("Successfully checked the execution status for DS execution. \
+                                                Setting value flag for 'TestResultStatus' to : " + str(TestResultStatus))
+                        #print ("Test Exeuction status is %r"  %TestResultStatus)
                         if (TestResultStatus ==True):
+                            Logger.messageLog ("Test Result execution status has been found to be : " + str(TestResultStatus))
+                            Logger.messageLog ("Trying to check the duration for the execution of the test command file.")
                             elapsed_Time = getTestExecutionTime(TestResultLogFile)
-                            
+                            Logger.messageLog ("Duration for the execution of the test command file is : " + str(elapsed_Time))
                             #****************************************
+                            Logger.messageLog ("Trying to check Test Type and if required fetch Throughput value.")
                             if (var_testType == "TP"):
+                                Logger.messageLog ("Test Type has been found to be : " + var_testType)
+                                Logger.messageLog ("Trying to fetch the Throughput value from TPValues.txt file.")
                                 ThroughputValue = GetThroughputValue(test_name)
+                                Logger.messageLog ("Value of Throughput found from TPValues.txt file :" + ThroughputValue)
                             else:
+                                Logger.messageLog ("Test Type has been found to be : " + var_testType +". Not required to fetch Throughput value.")
                                 ThroughputValue = 0
+                                Logger.messageLog ("Setting value of Throughput to 0.")
                             #****************************************
 
                             #saveExecutionStatusToFile(test_name, "DS", g_testcase_starttime, ThroughputValue, FileName, elapsed_Time)
-                            print test_name + "\t" + "DS" + "\t" + str(g_testcase_starttime)+ "\t" + str(ThroughputValue) + "\t " + FileName + "\t" + str(elapsed_Time)
-                            
+                            #print test_name + "\t" + "DS" + "\t" + str(g_testcase_starttime)+ "\t" + str(ThroughputValue) + "\t " + FileName + "\t" + str(elapsed_Time)
+                            Logger.messageLog ("Trying to call method to parse .bat file and store the details to database.")
                             result_test_Id = parseBatFile(srvr_details, test_name, "DS", g_testcase_starttime, ThroughputValue, FileName, elapsed_Time)
+                            Logger.messageLog ("Successfully executed parsing of .bat file")
+                            Logger.messageLog ("Test ID fetched from database for the parsed test command is : " + str(result_test_Id))
                             if(var_testType == "TP"):
+                                Logger.messageLog ("Test type has been found to be : " + var_testType)
                                 TPValuesFile = Directory+"TPValues.txt"
                                 pattern = test_name + " DS " + ThroughputValue
-                                subst = pattern +" " + str(result_test_Id) 
+                                subst = pattern +" " + str(result_test_Id)
+                                Logger.messageLog ("Calling method to store the TestID value fetched from database in TPValues.txt file.")
                                 replaceStringInFile(TPValuesFile, pattern, subst)
-                            print "Completed Bat Parse"
+                                Logger.messageLog ("Successfully stored the TestID of in TPValues.txt file for execution of RR/LAT test commands.")
                         else:
                             TestResultDir = var_Result_Dir + "\\" + str(getExecutionStartTime(TestResultLogFile))
-                            raise AssertionError("....!!!!!TCE!!!!! Test Case Excution status Failed. For More details check logs on WaveServer " + TestResultDir )
+                            Logger.errorLog ("Test Case execution failed. Please check the logs on Wave server.")                          
+                            raise AssertionError("Test Case Execution status Failed. For More details check logs on WaveServer " + TestResultDir )
                             return False
                     try :
-                        #os.remove(TestResultLogFile)
-                        
-                        pass
+                        os.remove(TestResultLogFile)
+                        Logger.messageLog ("Removed DownStream Uni Directional Test Result log file from local server.")
                     except :
-                        print("Execution Log File Not Present ")
+                        #print("Execution Log File Not Present ")
+                        Logger.errorLog ("Execution log file could not be found as it was not present in local server.")
+
                 except IOError as e:
                     err = "Input/Output error: %s" % ( str(e) )
                     raise Exception(err)
             else :
-                print ("Test Result Log File is not present on exepcted location")
+                #print ("Test Result Log File is not present on exepcted location")
+                Logger.messageLog ("Test Result Log file could not be found in the local server. Please check Wave server for details.")
         else :
-            raise AssertionError("!!!!!TCE!!!!! Exeuction Of Command File Failed please check logs for more details")
+            Logger.errorLog ("Execution Of Command File Failed. Please check the logs for more details.")
+            raise AssertionError("Execution Of Command File Failed. Please check the logs for more details.")
+
     #tracker.print_diff()           
 '''def verifyTestResourceAvailability(fileContent):
     if(fileContent.find("Reserving ports for the test")>0):
@@ -544,89 +587,112 @@ def verifyTestExectionStatus(respFileContent):
         Function Name        : verifyTestExectionStatus
         Function Description : This function will verify the execution status of test command.
         Inputs   : 
-            respFileContent  - Command file (.bat)
+            respFileContent  - Test Result Log File 
         Outputs  : 
              verifies the Execution the test commands.
             
     """ 
+    Logger.messageLog ("Reading the Test Result Log file to check the status of command file execution.")
     ReadFile = open(respFileContent,'r')
     ReadContentOfFile = ReadFile.read()
     ReadFile.close
+    Logger.messageLog ("Setting the default value of flag 'isTestPass' to 'True'.")
     isTestPass = True
     try:
         if(var_testType == "TP"):
+            Logger.messageLog ("Test Type for the current execution is : " + var_testType)
             if(len(list_mcs) > 1 ):
+                Logger.messageLog ("Test Case has been defined with multiple MCS values.")
                 for mcs in list_mcs:                
                     stringToFind = "PASS   unicast_unidirection "+mcs
-                    print ("****CTC**** String to Find : "+stringToFind)
+                    #print ("****CTC**** String to Find : "+stringToFind)
                     if(ReadContentOfFile.find(stringToFind) > 0):
                         #print "Test Case Passed for %s MCS" %mcs
-                        pass
-                        
+                        Logger.messageLog ("Test has executed successfully for MCS value : " + mcs)
                     else:
                         #print ("!!!!!CTC!!!!! Test Case Failed for %s MCS" %mcs)
+                        Logger.errorLog ("Test command has failed executing for MCS value : " + mcs)
                         isTestPass = False
+                        Logger.errorLog ("Setting flag value for 'isTestPass' to 'False'.")
             else :
+                Logger.messageLog ("Test Case has been defined with single MCS value.")
                 stringToFind = "PASS   unicast_unidirection "
-                print ("****CTC**** String to Find : "+stringToFind)
+                #print ("****CTC**** String to Find : "+stringToFind)
                 if(ReadContentOfFile.find(stringToFind) > 0):
                     #print "Test Case Passed for %s MCS" %mcs
-                    pass                    
+                    Logger.messageLog ("Test has executed successfully for MCS value : " + mcs)
                 else:
                     #print ("!!!!!CTC!!!!! Test Case Failed for %s MCS" %mcs)
+                    Logger.errorLog ("Test command has failed executing for MCS value : " + mcs)
                     isTestPass = False
+                    Logger.errorLog ("Setting flag value for 'isTestPass' to 'False'.")
         
         if(var_testType == "MaxClient"):
+            Logger.messageLog ("Test Type for the current execution is : " + var_testType)
             stringToFind = "PASS   unicast_max_client_c"
             #print "****CTC**** String to Find : "+stringToFind
             mcs_Count = len(list_mcs)
             occ_count = ReadContentOfFile.count(stringToFind)
             #print( mcs_Count, occ_count)
             if(occ_count == mcs_Count):
-                print ("Occurance os Expected String is : %d" %ReadContentOfFile.count(stringToFind))
-                    
+                #print ("Occurance of Expected String is : %d" %ReadContentOfFile.count(stringToFind))
+                Logger.messageLog ("Test has executed successfully for MCS value : " + mcs)
             else:
-                print ("!!!!!CTC!!!!! Test Case Failed for %s MCS")
+                Logger.errorLog ("Test command has failed executing for MCS value : " + mcs)
+                #print ("!!!!!CTC!!!!! Test Case Failed for %s MCS")
                 isTestPass = False
+                Logger.errorLog ("Setting flag value for 'isTestPass' to 'False'.")
+
         
         if(var_testType == "RR"):
+            Logger.messageLog ("Test Type for the current execution is : " + var_testType)
             stringToFind = "PASS   rate_vs_range_s2"
             #print "****CTC**** String to Find : "+stringToFind
             mcs_Count = len(list_mcs)
             occ_count = ReadContentOfFile.count(stringToFind)
             print (mcs_Count, occ_count)
             if(occ_count == mcs_Count):
-                print ("Occurance os Expected String is %d: "  %ReadContentOfFile.count(stringToFind))
-                    
+                #print ("Occurance os Expected String is %d: "  %ReadContentOfFile.count(stringToFind))
+                Logger.messageLog ("Test has executed successfully for MCS value : " + mcs)    
             else:
-                print ("!!!!!CTC!!!!! Test Case Failed for MCS" )
+                #print ("!!!!!CTC!!!!! Test Case Failed for MCS" )
+                Logger.errorLog ("Test command has failed executing for MCS value : " + mcs)
                 isTestPass = False
+                Logger.errorLog ("Setting flag value for 'isTestPass' to 'False'.")
 
         if(var_testType == "LAT"):
+            Logger.messageLog ("Test Type for the current execution is : " + var_testType)
             if(len(list_mcs) > 1 ):
+                Logger.messageLog ("Test Case has been defined with multiple MCS values.")
                 for mcs in list_mcs:                
                     stringToFind = "PASS   unicast_latency      "+mcs
                     print ("****CTC**** String to Find : "+stringToFind)
                     if(ReadContentOfFile.find(stringToFind) > 0):
                         #print "Test Case Passed for %s MCS" %mcs
-                        pass
-                        
+                        Logger.messageLog ("Test has executed successfully for MCS value : " + mcs)
                     else:
-                        print ("!!!!!CTC!!!!! Test Case Failed for %s MCS" %mcs)
+                        #print ("!!!!!CTC!!!!! Test Case Failed for %s MCS" %mcs)
+                        Logger.errorLog ("Test command has failed executing for MCS value : " + mcs)
                         isTestPass = False
+                        Logger.errorLog ("Setting flag value for 'isTestPass' to 'False'.")
             else :
+                Logger.messageLog ("Test Case has been defined with Single MCS values.")
                 stringToFind = "PASS   unicast_latency "
-                print ("****CTC**** String to Find : "+stringToFind)
+                #print ("****CTC**** String to Find : "+stringToFind)
                 if(ReadContentOfFile.find(stringToFind) > 0):
                     #print "Test Case Passed for %s MCS" %mcs
+                    Logger.messageLog ("Test has executed successfully for MCS value : " + mcs)
                     pass                    
                 else:
+                    Logger.errorLog ("Test command has failed executing for MCS value : " + mcs)    
                     #print ("!!!!!CTC!!!!! Test Case Failed for %s MCS" %mcs)
                     isTestPass = False
+                    Logger.errorLog ("Setting flag value for 'isTestPass' to 'False'.")
     except ValueError as e:
         err = "Value Error is %s" % ( str(e) )
         raise Exception(err)
-                    
+
+    Logger.messageLog ("Setting flag value for 'isTestPass' to 'True'.")
     return isTestPass
 
 def getTestExecutionTime(respFileContent):
@@ -634,11 +700,12 @@ def getTestExecutionTime(respFileContent):
         Function Name        : getTestExecutionTime
         Function Description : This function will Get the test execution time.
         Inputs   : 
-            respFileContent  - Command file (.bat)
+            respFileContent  - Test Result Log file.
         Outputs  : 
              Gets the Execution the test commands.      
     """
     try :
+        Logger.messageLog ("Reading the Test Result Log file to check Total time for execution.")
         ReadFile = open(respFileContent,'r')
         ReadContentOfFile = ReadFile.read()
         ReadFile.close
@@ -651,25 +718,28 @@ def getTestExecutionTime(respFileContent):
     if(lines):
         for eachline in lines:
             #print eachline
-        
+            
             if (eachline.find("Starting automated test run at")>0):
-               #print ("Found Exe Started Time")
+                Logger.messageLog ("Searching for execution start time.")
+                #print ("Found Exe Started Time")
                 start = eachline.index("run at")
                 end = eachline.index(".")
                 g_testcase_starttime = eachline[start+6:end]
                 g_testcase_starttime = g_testcase_starttime.strip()
                 #g_testcase_starttime = g_testcase_starttime.replace("-","")
                 temp_testcase_starttime = g_testcase_starttime.replace("-","")
+                Logger.messageLog ("Execution started at : " + g_testcase_starttime)
                 
             elif (eachline.find("Automated test run completed at")>0):
+                Logger.messageLog ("Searching for Execution Completion time.")
                 start = eachline.index("ted at")
                 end = eachline.index(".")
                 g_testcase_stoptime = eachline[start+6:end]
                 g_testcase_stoptime = g_testcase_stoptime.strip()
                 g_testcase_stoptime = g_testcase_stoptime.replace("-", "")
-                  
-                
-    print ("*****GTET***** Execution Started at :"+g_testcase_starttime)
+                Logger.messageLog ("Execution stopped at : " + g_testcase_stoptime)
+            
+    #print ("*****GTET***** Execution Started at :"+g_testcase_starttime)
     #print "*****GTET***** Execution Completed at :"+g_testcase_stoptime
     #starttime_object = datetime.strptime(temp_testcase_starttime, '%Y%m%d%H%M%S')
     starttime_object = datetime.datetime.strptime(temp_testcase_starttime, '%Y%m%d%H%M%S')
@@ -678,9 +748,11 @@ def getTestExecutionTime(respFileContent):
     stoptime_object = datetime.datetime.strptime(g_testcase_stoptime, '%Y%m%d%H%M%S')
     
     elapsed_Time =  stoptime_object - starttime_object
-    print ("****GTET****** Total Test Execution Time is : " + str (elapsed_Time))
-    
+    #print ("****GTET****** Total Test Execution Time is : " + str (elapsed_Time))
+    Logger.messageLog ("Total time taken for execution : " + str(elapsed_Time))
     return str(elapsed_Time)
+
+
 def getExecutionStartTime(respFileContent):
     """
         Function Name        : getExecutionStartTime
@@ -689,6 +761,7 @@ def getExecutionStartTime(respFileContent):
         Outputs              : Gets the Execution the test commands.      
     """
     try:
+        Logger.messageLog ("Reading the Test Result Log file to check Start time for execution.")
         ReadFile = open(respFileContent,'r')
         ReadContentOfFile = ReadFile.read()
         ReadFile.close
@@ -707,7 +780,7 @@ def getExecutionStartTime(respFileContent):
                 g_testcase_starttime = eachline[start+6:end]
                 g_testcase_starttime = g_testcase_starttime.strip()
                 
-    
+    Logger.messageLog ("Execution Start time is :" + g_testcase_starttime)
     return g_testcase_starttime
 
    
@@ -725,23 +798,30 @@ def saveExecutionStatusToFile(test_name, direction, timestamp, mcs, TestResultSt
         Outputs  : 
             Saves the execution status to a file.       
     """
-    print ("In Save Execution Status File")
+    Logger.messageLog ("In method to save execution status to text file.")
     execStatusFileName = Directory +"ExecutionStatus.txt"
+    Logger.messageLog ("Searching for test execution status text file.")
     try:
         if(os.path.isfile(execStatusFileName)):
+            Logger.messageLog ("Test Execution status text file is present.")
             print ("Execution Status File already present ")
             execStatusFile = open(execStatusFileName, "a")
             execStatusFile.write(test_name+ "\t"+ str(var_direction)+ "\t" + str(timestamp)+"\t"+ mcs +"\t"+str(TestResultStatus) + "\t" + str(elapsed_Time))
             execStatusFile.write("\n")
         else :
+            Logger.messageLog ("Creating Test Execution status text file.")
             execStatusFile = open(execStatusFileName, "w")
             execStatusFile.write("test_name\t"+ "direction\t" + "timestamp\t"+ "mcs\t"+"TestResultStatus\t" + "Elapsed Time\t")
+            Logger.messageLog ("Writing headers 'Test Name',  'Direction',  'TimeStamp', 'MCS',  'Test Result Status',  'Elapsed Time'")
             execStatusFile.write("\n")
             execStatusFile.write(test_name+ "\t"+ str(var_direction)+ "\t" + str(timestamp)+"\t"+ mcs +"\t"+str(TestResultStatus) + "\t" + str(elapsed_Time))
+            Logger.execution ("Inserting value for each of the headers mentioned in the file for the current command file execution.")
             execStatusFile.write("\n")
     except IOError as e:
         err = "Input/Output error: %s" % ( str(e) )
         raise Exception(err)
+    Logger.messageLog ("Completed inserting test execution details to test execution text file.")
+
 
 def GetThroughputValue(test_name):
     #ts = time.time()
@@ -751,16 +831,15 @@ def GetThroughputValue(test_name):
         #readTP = open(Directory+"TPValues_"+st+".txt","r")
         readTP = open(Directory+"TPValues.txt","r")
         content = readTP.read()
+        Logger.messageLog ("Opening and reading TPValues.txt file for the Throughput value.")
         lines = content.split("\n")
         readTP.close();
         
     except IOError as e:
         err = "Input/Output error: %s" % ( str(e) )
-        raise Exception(err)  
+        raise Exception(err)
     #print ("\""+test_name+"\"")
     for eachline in lines:
-        #print (eachline)
-        
         try:
             list = eachline.split(" ")
             
@@ -772,11 +851,13 @@ def GetThroughputValue(test_name):
         except ValueError as e:
             err = "Value Error is %s" % ( str(e) )
             raise Exception(err)
-    print ("Throughout Value is " + TPValue)
+    #print ("Throughout Value is " + TPValue)
+    Logger.messageLog ("Throughput Value found in the TPValues.txt file : " + TPValue)
     return TPValue
 
 def replaceStringInFile(file, pattern, subst):
     # Read contents from file as a single string
+    Logger.messageLog ("Reading the existing contents from file.")
     file_handle = open(file, 'r')
     file_string = file_handle.read()
     file_handle.close()
@@ -789,3 +870,4 @@ def replaceStringInFile(file, pattern, subst):
     file_handle = open(file, 'w')
     file_handle.write(file_string)
     file_handle.close()
+    Logger.messageLog ("Updated the existing contents of file with the new contents.")
